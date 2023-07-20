@@ -8,7 +8,7 @@ from email.mime.text import MIMEText
 app = FastAPI()
 
 OWN_EMAIL = "zhbcheng@gmail.com"
-OWN_EMAIL_PASSWORD = "Jingxuan99"
+OWN_EMAIL_PASSWORD = "xxx"
 
 class EmailBody(BaseModel):
     to: str
@@ -27,9 +27,7 @@ async def send_email(body: EmailBody):
 
         # Connect to the email server
         server = SMTP_SSL("smtp.gmail.com", port)
-        print('********||||')
         server.login(OWN_EMAIL, OWN_EMAIL_PASSWORD)
-        print('okOooooooooooo')
         # Send the email
         server.send_message(msg)
         server.quit()
