@@ -1,37 +1,38 @@
-# main.py
+import uvicorn
 from fastapi import FastAPI
-from fastapi.exceptions import HTTPException
-from pydantic import BaseModel
-from smtplib import SMTP_SSL
-from email.mime.text import MIMEText
+from pathlib import Path
+from mail.mail import (MessageSchema, 
+                       send_email_plain,
+                       send_email_attachedfile)
 
-app = FastAPI()
+HERE = Path(__file__).resolve().parent
 
-OWN_EMAIL = "1510677989@qq.com"
-OWN_EMAIL_PASSWORD = "ivumeyhfaghbigdj"
+app = FastAPI(title='How to Send Email')
+ 
+@app.get('/')
+def index():
+    return 'Hello World'
 
-class EmailBody(BaseModel):
-    to: str
-    subject: str
-    message: str
 
-@app.post("/email")
-async def send_email(body: EmailBody):
-    try:
-        msg = MIMEText(body.message, "html")
-        msg['Subject'] = body.subject
-        msg['From'] = f'Denolyrics <{OWN_EMAIL}>'
-        msg['To'] = body.to
+@app.get('/send-email-plain/asynchronous')
+async def send_email_plain_asynchronous():
+    subject="过期提醒"
+    message="你好，型式试验报告过期，请及时替换。"
+    await send_email_plain(message=MessageSchema(subject=subject,message=message),
+                           recipients=['czb@zjut.edu.cn','zhbcheng@gmail.com'])
+    return 'Success'
 
-        port = 465  # For SSL
+@app.get('/send-email-attachedfile/asynchronous')
+async def send_email_attachedfile_asynchronous():
+    subject="过期提醒"
+    message="你好，附件的型式试验报告临近过期，请及时替换文件。"
 
-        # Connect to the email server
-        server = SMTP_SSL("smtp.qq.com", port)
-        server.login(OWN_EMAIL, OWN_EMAIL_PASSWORD)
-        # Send the email
-        server.send_message(msg)
-        server.quit()
-        return {"message": "Email sent successfully"}
+    file_name = HERE / 'attachedfiles'/'td.pdf'
+    await send_email_attachedfile(message=MessageSchema(subject=subject,message=message),
+                           recipients=['czb@zjut.edu.cn','zhbcheng@gmail.com'], 
+                           filename=file_name)
+    return 'Success'
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=e)
+
+if __name__ == '__main__':
+    uvicorn.run('main:app', reload=True)

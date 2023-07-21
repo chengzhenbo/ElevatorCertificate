@@ -1,0 +1,5 @@
+MAIL_PASSWORD='ivumeyhfaghbigdj'
+MAIL_FROM='1510677989@qq.com'
+MAIL_PORT=465
+MAIL_SERVER='smtp.qq.com'
+MAIL_FROM_NAME='Technology Department'
