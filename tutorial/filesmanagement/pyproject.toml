@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "filesmanagement"
+version = "0.1.0"
+description = ""
+authors = ["chengzhenbo <50646861+chengzhenbo@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.100.0"
+unicorn = "^2.0.1.post1"
+uvicorn = "^0.23.1"
+python-multipart = "^0.0.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
