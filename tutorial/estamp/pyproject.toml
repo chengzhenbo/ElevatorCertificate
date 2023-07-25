@@ -10,6 +10,8 @@ python = "^3.11"
 fastapi = "^0.100.0"
 uvicorn = "^0.23.1"
 pydantic-settings = "^2.0.2"
+pillow = "^10.0.0"
+pymupdf = "^1.22.5"
 
 
 [build-system]

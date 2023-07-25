@@ -1,2 +1,3 @@
-ESTAMP_PATH='stampfiles'
+ESTAMP_PATH='stamp_files'
 ESTAMP_XIZHI='xizhi_estamp.png'
+PDF_PATH='pdf_files'
