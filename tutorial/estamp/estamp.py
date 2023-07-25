@@ -49,7 +49,7 @@ class Stamp:
         doc.save(self.pdf_output)
         doc.close()
 
-stamp = Stamp(pdf_inputname='IB23042824.pdf', pdf_outputname='IB23042824_out.pdf')
+stamp = Stamp(pdf_inputname='C8950.pdf', pdf_outputname='C8950_out.pdf')
 stamp.pdf_to_img()
 stamp.merge_img()
 stamp.img_to_pdf()
