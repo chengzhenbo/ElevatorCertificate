@@ -1,14 +1,15 @@
-from pathlib import Path
-from config import settings
 from fastapi import FastAPI
+import uvicorn
 
-HERE = Path(__file__).resolve().parent
+from estamp import Stamp
+
 app = FastAPI()
 
 @app.get("/")
 def root():
-    return{'message':'Hello.'}
+    stamp = Stamp(pdf_inputname='C8950.pdf', stamp_page='L')
+    outfile = stamp.run()
+    return{'outputfile':outfile}
 
 if __name__ == '__main__':
-    print(HERE)
-    print(settings.ESTAMP_PATH)
+    uvicorn.run('main:app', reload=True)
