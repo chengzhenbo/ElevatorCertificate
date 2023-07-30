@@ -1,5 +1,4 @@
 from fastapi import FastAPI,UploadFile,HTTPException
-import pandas as pd
 from io import BytesIO
 
 from excel_reader import read_supplier_data, SupplierType
@@ -21,8 +20,11 @@ async def create_upload_file(file: UploadFile):
         wb = read_supplier_data(supplier_type=SupplierType.ANQUANQIAN_1, 
                                        file = excelfile)
 
-        print(wb)
-        return True
+        if wb is not None:
+            print(wb)
+            return True
+        else:
+            raise HTTPException(status_code=404, detail="Data reader is wrong")
 
     else:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=404, detail="File can not open")

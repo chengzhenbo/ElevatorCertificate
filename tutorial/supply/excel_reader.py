@@ -59,8 +59,9 @@ class ExcelReader:
                                 dtype=str)
         # 检查excel文件列名
         self.check_header()
-        # 将中文列名转换为拼音列名，每字拼音首字母大写
+        
         if self.pingying_columns is not None:
+            # 将中文列名转换为拼音列名，每字拼音首字母大写
             self.df.columns = self.pingying_columns
             # 合同号为空的数据条目滤去
             if 'HeTongHao' in self.df.columns:
@@ -100,6 +101,7 @@ def read_data(colunms_name:str, ind_name:str, path:Path)->DataFrame:
 
 def read_supplier_data(supplier_type:SupplierType, file:Path)->DataFrame:
     """根据供应商类型和文件路径，读入excel数据返回pandas的dataframe类型数据"""
+    data = None
     if supplier_type == SupplierType.ZHUBAN_SMART:
         data = read_data(colunms_name = SupplierType.ZHUBAN_SMART.value + "_COLUMNS", 
                          ind_name = SupplierType.ZHUBAN_SMART.value + "_IND", 
