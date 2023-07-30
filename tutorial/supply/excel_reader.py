@@ -98,67 +98,67 @@ def read_data(colunms_name:str, ind_name:str, path:Path)->DataFrame:
 
     return products
 
-def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
+def read_supplier_data(supplier_type:SupplierType, file:Path)->DataFrame:
     """根据供应商类型和文件路径，读入excel数据返回pandas的dataframe类型数据"""
     if supplier_type == SupplierType.ZHUBAN_SMART:
         data = read_data(colunms_name = SupplierType.ZHUBAN_SMART.value + "_COLUMNS", 
                          ind_name = SupplierType.ZHUBAN_SMART.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.ZHUBAN_LVCT:
         data = read_data(colunms_name = SupplierType.ZHUBAN_LVCT.value + "_COLUMNS", 
                          ind_name = SupplierType.ZHUBAN_LVCT.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.ZHUJI_QUDONG:
         data = read_data(colunms_name = SupplierType.ZHUJI_QUDONG.value + "_COLUMNS", 
                          ind_name = SupplierType.ZHUJI_QUDONG.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.ZHUJI_ZHIDONG:
         data = read_data(colunms_name = SupplierType.ZHUJI_ZHIDONG.value + "_COLUMNS", 
                          ind_name = SupplierType.ZHUJI_ZHIDONG.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.ZHUJI_YIDONGBAOHU:
         data = read_data(colunms_name = SupplierType.ZHUJI_YIDONGBAOHU.value + "_COLUMNS", 
                          ind_name = SupplierType.ZHUJI_YIDONGBAOHU.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.ZHIDONGJIUYUAN:
         data = read_data(colunms_name = SupplierType.ZHIDONGJIUYUAN.value + "_COLUMNS", 
                          ind_name = SupplierType.ZHIDONGJIUYUAN.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.IC_CARD:
         data = read_data(colunms_name = SupplierType.IC_CARD.value + "_COLUMNS", 
                          ind_name = SupplierType.IC_CARD.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.SHENGTOUZHUHE:
         data = read_data(colunms_name = SupplierType.SHENGTOUZHUHE.value + "_COLUMNS", 
                          ind_name = SupplierType.SHENGTOUZHUHE.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.ANQUANQIAN_1:
         data = read_data(colunms_name = SupplierType.ANQUANQIAN_1.value + "_COLUMNS", 
                          ind_name = SupplierType.ANQUANQIAN_1.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.ANQUANQIAN_2:
         data = read_data(colunms_name = SupplierType.ANQUANQIAN_2.value + "_COLUMNS", 
                          ind_name = SupplierType.ANQUANQIAN_2.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.XIANSUQI:
         data = read_data(colunms_name = SupplierType.XIANSUQI.value + "_COLUMNS", 
                          ind_name = SupplierType.XIANSUQI.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     elif supplier_type == SupplierType.HUANCHONGQI:
         data = read_data(colunms_name = SupplierType.HUANCHONGQI.value + "_COLUMNS", 
                          ind_name = SupplierType.HUANCHONGQI.value + "_IND", 
-                         path = path)
+                         path = file)
         return data
     else:
         raise SupplierTypeError(supplier_type)
