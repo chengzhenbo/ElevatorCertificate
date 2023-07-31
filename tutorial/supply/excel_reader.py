@@ -32,7 +32,7 @@ class SupplierType(StrEnum):
 class ColumnHeaderError(Exception):
     header:str 
     def __str__(self) -> str:
-        return f"Excel文件的列名'{self.header}'与配置文件不一致，请使用模板文件."
+        return f"Excel模板文件的列名'{self.header}'不存在，请使用模板文件上传数据."
 
 @dataclass
 class SupplierTypeError(Exception):
@@ -75,7 +75,7 @@ class ExcelReader:
         """检查Excel文件的header是否与模板一致"""
         for i, col in enumerate(self.columns):
             if self.df.columns.values[i].split('.')[0] != col:
-                raise ColumnHeaderError(self.df.columns.values[i])
+                raise ColumnHeaderError(col)
 
 def get_pingying_columns(columns:list[str])->list[str]:
     """将中文的列名转换为拼音，每个字拼音首字母大写"""
