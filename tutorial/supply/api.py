@@ -17,11 +17,11 @@ async def create_upload_file(file: UploadFile):
         # Read it, 'f' type is bytes
         f = await file.read()
         excelfile = BytesIO(f)
-        wb = read_supplier_data(supplier_type=SupplierType.ANQUANQIAN_1, 
+        product_parts = read_supplier_data(supplier_type=SupplierType.ANQUANQIAN_1, 
                                        file = excelfile)
 
-        if wb is not None:
-            print(wb)
+        if product_parts is not None:
+            print(product_parts)
             return True
         else:
             raise HTTPException(status_code=404, detail="Data reader is wrong")

@@ -32,7 +32,7 @@ class SupplierType(StrEnum):
 class ColumnHeaderError(Exception):
     header:str 
     def __str__(self) -> str:
-        return f"Excel模板文件的列名'{self.header}'不存在，请使用模板文件上传数据."
+        return f"Excel模板文件的列名'{self.header}'不存在，请使用正确的模板文件上传数据."
 
 @dataclass
 class SupplierTypeError(Exception):
