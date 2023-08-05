@@ -5,6 +5,7 @@ from dataclasses import dataclass
 import re
 import json
 import configparser
+from collections import namedtuple
 
 import pandas as pd
 import pypinyin
@@ -13,6 +14,9 @@ from pandera.typing import DataFrame
 CONFIG = configparser.ConfigParser()
 CONFIG.read('exceltemplate.ini', encoding='utf-8')
 
+Sec_Name = namedtuple('Sec_Name', ['sec_name_colunms', 
+                                   'sec_name_hidx',
+                                   'sec_name_bianhao'])
 
 class SupplierType(StrEnum):
     ZHUBAN_SMART = 'ZHUBAN_SMART'
@@ -23,10 +27,17 @@ class SupplierType(StrEnum):
     ZHIDONGJIUYUAN = 'ZHIDONGJIUYUAN'
     IC_CARD = 'IC_CARD'
     SHENGTOUZHUHE = 'SHENGTOUZHUHE'
-    ANQUANQIAN_1 = 'ANQUANQIAN_1'
-    ANQUANQIAN_2 = 'ANQUANQIAN_2'
+    ANQUANQIAN = 'ANQUANQIAN'
     XIANSUQI = 'XIANSUQI'
     HUANCHONGQI = 'HUANCHONGQI'
+
+@dataclass
+class ParasParserExcel():
+    origin_columns:list[str]
+    new_columns:list[str]
+    bianhao_idxs:list[list[str]]
+    header_idx:int = 0
+    usecols:str = None 
 
 @dataclass
 class ColumnHeaderError(Exception):
@@ -45,30 +56,31 @@ class ExcelReader:
                  header_idx:int, 
                  usecols:str,
                  columns:list[str],
-                 pingying_columns:list[str] = None)->None:
+                 new_columns:list[str] = None)->None:
         self.file_path = file_path
         self.header_idx = header_idx
         self.usecols = usecols
         self.columns = columns
-        self.pingying_columns = pingying_columns
+        self.new_columns = new_columns
 
-    def read_file_clean(self)->DataFrame:
+    def __call__(self)->DataFrame:
         self.df = pd.read_excel(io = self.file_path, 
                                 header=self.header_idx,
                                 usecols=self.usecols,
                                 dtype=str)
         # 检查excel文件列名
         self.check_header()
+        # 合同号为空的数据条目滤去
+        if '合同号' in self.df.columns:
+            self.df = self.df[self.df[['合同号']].notnull().all(1)]
+        # 制造日期列的数据格式转换
+        if '制造日期' in self.df.columns:
+            self.df['制造日期'] = self.df['制造日期'].astype('datetime64[ns]')
         
-        if self.pingying_columns is not None:
-            # 将中文列名转换为拼音列名，每字拼音首字母大写
-            self.df.columns = self.pingying_columns
-            # 合同号为空的数据条目滤去
-            if 'HeTongHao' in self.df.columns:
-                self.df = self.df[self.df[['HeTongHao']].notnull().all(1)]
-            # 制造日期列的数据格式转换
-            if 'ZhiZaoRiQi' in self.df.columns:
-                self.df['ZhiZaoRiQi'] = self.df['ZhiZaoRiQi'].astype('datetime64[ns]')
+        if self.new_columns is not None:
+            # 将中文列名转换更新为新的列名，方便导入到数据库
+            self.df.columns = self.new_columns
+            
         return self.df
 
     def check_header(self):
@@ -77,6 +89,59 @@ class ExcelReader:
             if self.df.columns.values[i].split('.')[0] != col:
                 raise ColumnHeaderError(col)
 
+def get_sec_name(supplier_type:SupplierType)->Sec_Name:
+    """根据供应商类型，得到解析配置文件所需的section名"""
+    if supplier_type == SupplierType.ZHUBAN_SMART:
+        sec_name_colunms = SupplierType.ZHUBAN_SMART.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.ZHUBAN_SMART.value + "_IND"
+        sec_name_bianhao = SupplierType.ZHUBAN_SMART.value + "_BIANHAO"
+    elif supplier_type == SupplierType.ZHUBAN_LVCT:
+        sec_name_colunms = SupplierType.ZHUBAN_LVCT.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.ZHUBAN_LVCT.value + "_IND"
+        sec_name_bianhao = SupplierType.ZHUBAN_LVCT.value + "_BIANHAO"
+    elif supplier_type == SupplierType.ZHUJI_QUDONG:
+        sec_name_colunms = SupplierType.ZHUJI_QUDONG.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.ZHUJI_QUDONG.value + "_IND"
+        sec_name_bianhao = SupplierType.ZHUJI_QUDONG.value + "_BIANHAO"
+    elif supplier_type == SupplierType.ZHUJI_ZHIDONG:
+        sec_name_colunms = SupplierType.ZHUJI_ZHIDONG.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.ZHUJI_ZHIDONG.value + "_IND"
+        sec_name_bianhao = SupplierType.ZHUJI_ZHIDONG.value + "_BIANHAO"
+    elif supplier_type == SupplierType.ZHUJI_YIDONGBAOHU:
+        sec_name_colunms = SupplierType.ZHUJI_YIDONGBAOHU.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.ZHUJI_YIDONGBAOHU.value + "_IND"
+        sec_name_bianhao = SupplierType.ZHUJI_YIDONGBAOHU.value + "_BIANHAO"
+    elif supplier_type == SupplierType.ZHIDONGJIUYUAN:
+        sec_name_colunms = SupplierType.ZHIDONGJIUYUAN.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.ZHIDONGJIUYUAN.value + "_IND"
+        sec_name_bianhao = SupplierType.ZHIDONGJIUYUAN.value + "_BIANHAO"
+    elif supplier_type == SupplierType.IC_CARD:
+        sec_name_colunms = SupplierType.IC_CARD.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.IC_CARD.value + "_IND"
+        sec_name_bianhao = SupplierType.IC_CARD.value + "_BIANHAO"
+    elif supplier_type == SupplierType.SHENGTOUZHUHE:
+        sec_name_colunms = SupplierType.SHENGTOUZHUHE.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.SHENGTOUZHUHE.value + "_IND"
+        sec_name_bianhao = SupplierType.SHENGTOUZHUHE.value + "_BIANHAO"
+    elif supplier_type == SupplierType.ANQUANQIAN:
+        sec_name_colunms = SupplierType.ANQUANQIAN.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.ANQUANQIAN.value + "_IND"
+        sec_name_bianhao = SupplierType.ANQUANQIAN.value + "_BIANHAO"
+    elif supplier_type == SupplierType.XIANSUQI:
+        sec_name_colunms = SupplierType.XIANSUQI.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.XIANSUQI.value + "_IND"
+        sec_name_bianhao = SupplierType.XIANSUQI.value + "_BIANHAO"
+    elif supplier_type == SupplierType.HUANCHONGQI:
+        sec_name_colunms = SupplierType.HUANCHONGQI.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.HUANCHONGQI.value + "_IND"
+        sec_name_bianhao = SupplierType.HUANCHONGQI.value + "_BIANHAO"
+    else:
+        raise SupplierTypeError(supplier_type)
+    
+    return Sec_Name(sec_name_colunms = sec_name_colunms, 
+                     sec_name_hidx = sec_name_hidx,
+                     sec_name_bianhao = sec_name_bianhao)
+     
 def get_pingying_columns(columns:list[str])->list[str]:
     """将中文的列名转换为拼音，每个字拼音首字母大写"""
     pinying_columns = []
@@ -87,70 +152,53 @@ def get_pingying_columns(columns:list[str])->list[str]:
         pinying_columns.append(p_col[0])
     return pinying_columns
 
-def read_data(colunms_name:str, ind_name:str, path:Path)->DataFrame:
-    keys = [key for key, _ in CONFIG[colunms_name].items()]
-    colunms = []
-    alias_columns = []
+def paras_parser_file(sec_name:Sec_Name)->ParasParserExcel:
+    """根据配置文件，解析读取excel文件所需的参数"""
+    sec_name_colunms = sec_name.sec_name_colunms
+    sec_name_hidx = sec_name.sec_name_hidx
+    sec_name_bianhao = sec_name.sec_name_bianhao
+    
+    origin_columns = []
+    new_columns = []
+    keys = [key for key, _ in CONFIG[sec_name_colunms].items()]
     for key in keys:
-        item = json.loads(CONFIG.get(colunms_name, key))
-        colunms.append(item[0])
-        alias_columns.append(item[1]) # alias_columns = get_pingying_columns(colunms)
-    header_idx = CONFIG.getint(ind_name, 'header_idx'),
-    usecols = ','.join(CONFIG.options(colunms_name))
-    
-    excelreader_zhuban_SMART = ExcelReader(file_path = path,
-                                header_idx = header_idx,
-                                usecols = usecols,
-                                columns = colunms,
-                                pingying_columns=alias_columns)
-    products = excelreader_zhuban_SMART.read_file_clean()
+        item = json.loads(CONFIG.get(sec_name_colunms, key))
+        origin_columns.append(item[0])
+        new_columns.append(item[1])
+    header_idx = CONFIG.getint(sec_name_hidx, 'header_idx'),
+    usecols = ','.join(CONFIG.options(sec_name_colunms))
+    bianhao_idxs = json.loads(CONFIG.get(sec_name_bianhao, 'bianhao_idx'))
 
-    return products
+    return ParasParserExcel(origin_columns = origin_columns,
+                            new_columns = new_columns,
+                            bianhao_idxs = bianhao_idxs,
+                            header_idx = header_idx,
+                            usecols = usecols)
 
-def read_supplier_data(supplier_type:SupplierType, file:Path)->DataFrame:
+def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
     """根据供应商类型和文件路径，读入excel数据返回pandas的dataframe类型数据"""
-    if supplier_type == SupplierType.ZHUBAN_SMART:
-        colunms_name = SupplierType.ZHUBAN_SMART.value + "_COLUMNS"
-        ind_name = SupplierType.ZHUBAN_SMART.value + "_IND"
-    elif supplier_type == SupplierType.ZHUBAN_LVCT:
-        colunms_name = SupplierType.ZHUBAN_LVCT.value + "_COLUMNS"
-        ind_name = SupplierType.ZHUBAN_LVCT.value + "_IND"
-    elif supplier_type == SupplierType.ZHUJI_QUDONG:
-        colunms_name = SupplierType.ZHUJI_QUDONG.value + "_COLUMNS"
-        ind_name = SupplierType.ZHUJI_QUDONG.value + "_IND"
-    elif supplier_type == SupplierType.ZHUJI_ZHIDONG:
-        colunms_name = SupplierType.ZHUJI_ZHIDONG.value + "_COLUMNS"
-        ind_name = SupplierType.ZHUJI_ZHIDONG.value + "_IND"
-    elif supplier_type == SupplierType.ZHUJI_YIDONGBAOHU:
-        colunms_name = SupplierType.ZHUJI_YIDONGBAOHU.value + "_COLUMNS"
-        ind_name = SupplierType.ZHUJI_YIDONGBAOHU.value + "_IND"
-    elif supplier_type == SupplierType.ZHIDONGJIUYUAN:
-        colunms_name = SupplierType.ZHIDONGJIUYUAN.value + "_COLUMNS"
-        ind_name = SupplierType.ZHIDONGJIUYUAN.value + "_IND"
-    elif supplier_type == SupplierType.IC_CARD:
-        colunms_name = SupplierType.IC_CARD.value + "_COLUMNS"
-        ind_name = SupplierType.IC_CARD.value + "_IND"
-    elif supplier_type == SupplierType.SHENGTOUZHUHE:
-        colunms_name = SupplierType.SHENGTOUZHUHE.value + "_COLUMNS"
-        ind_name = SupplierType.SHENGTOUZHUHE.value + "_IND"
-    elif supplier_type == SupplierType.ANQUANQIAN_1:
-        colunms_name = SupplierType.ANQUANQIAN_1.value + "_COLUMNS"
-        ind_name = SupplierType.ANQUANQIAN_1.value + "_IND"
-    elif supplier_type == SupplierType.ANQUANQIAN_2:
-        colunms_name = SupplierType.ANQUANQIAN_2.value + "_COLUMNS"
-        ind_name = SupplierType.ANQUANQIAN_2.value + "_IND"
-    elif supplier_type == SupplierType.XIANSUQI:
-        colunms_name = SupplierType.XIANSUQI.value + "_COLUMNS"
-        ind_name = SupplierType.XIANSUQI.value + "_IND"
-    elif supplier_type == SupplierType.HUANCHONGQI:
-        colunms_name = SupplierType.HUANCHONGQI.value + "_COLUMNS"
-        ind_name = SupplierType.HUANCHONGQI.value + "_IND"
-    else:
-        raise SupplierTypeError(supplier_type)
     
-    return read_data(colunms_name =  colunms_name,
-                     ind_name = ind_name, 
-                     path = file)
+    sec_name = get_sec_name(supplier_type=supplier_type)
+    paras_parser = paras_parser_file(sec_name=sec_name)
+    excel_reader = ExcelReader(file_path = path,
+                                header_idx = paras_parser.header_idx,
+                                usecols = paras_parser.usecols,
+                                columns = paras_parser.origin_columns,
+                                new_columns = paras_parser.new_columns)
+    products = excel_reader()
+    # 根据配置文件中编号设置，将产品按编号组织数据
+    bianhao_idxs = paras_parser.bianhao_idxs
+    if len(bianhao_idxs) > 0:
+        for i, bianhao in enumerate(bianhao_idxs):
+            if i == 0:
+                product_0 = products[bianhao]
+            else:
+                product_1 = products[bianhao]
+                product_1.columns = product_0.columns
+                product_0 = pd.concat([product_0, product_1],ignore_index=True)
+
+        return product_0.dropna()
+    return products.dropna()
 
 
 
