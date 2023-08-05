@@ -11,7 +11,7 @@ import pypinyin
 from pandera.typing import DataFrame
 
 CONFIG = configparser.ConfigParser()
-CONFIG.read('exceltemplate.ini')
+CONFIG.read('exceltemplate.ini', encoding='utf-8')
 
 
 class SupplierType(StrEnum):
@@ -88,13 +88,21 @@ def get_pingying_columns(columns:list[str])->list[str]:
     return pinying_columns
 
 def read_data(colunms_name:str, ind_name:str, path:Path)->DataFrame:
-    colunms = [column for _, column in CONFIG[colunms_name].items()]
-    pingying_columns = get_pingying_columns(colunms)
+    keys = [key for key, _ in CONFIG[colunms_name].items()]
+    colunms = []
+    alias_columns = []
+    for key in keys:
+        item = json.loads(CONFIG.get(colunms_name, key))
+        colunms.append(item[0])
+        alias_columns.append(item[1]) # alias_columns = get_pingying_columns(colunms)
+    header_idx = CONFIG.getint(ind_name, 'header_idx'),
+    usecols = ','.join(CONFIG.options(colunms_name))
+    
     excelreader_zhuban_SMART = ExcelReader(file_path = path,
-                                header_idx = json.loads(CONFIG.get(ind_name, 'header_idx')),
-                                usecols = ','.join(CONFIG.options(colunms_name)),
+                                header_idx = header_idx,
+                                usecols = usecols,
                                 columns = colunms,
-                                pingying_columns=pingying_columns)
+                                pingying_columns=alias_columns)
     products = excelreader_zhuban_SMART.read_file_clean()
 
     return products
