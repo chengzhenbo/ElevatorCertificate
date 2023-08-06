@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from models.supplier import SupplierSmartBoardModel
-from schemas.smart_board import SmartBoardCreateSchema
+from schemas.supplier_smart_board import SmartBoardCreateSchema
 
 def create_smart_board(db: Session, smartboard: SmartBoardCreateSchema):
     db_smartboard = SupplierSmartBoardModel(contract_no = smartboard.contract_no,

@@ -11,6 +11,7 @@ class SmartBoardBaseSchema(BaseModel):
     smartb_manufacture_batch_no : Optional[str] = None
     smartb_type_testing_cert_no : Optional[str] = None
     smartb_manufacture_date : Optional[datetime] = None
+    user_id : Optional[int] = None
 
 class SmartBoardCreateSchema(SmartBoardBaseSchema):
     pass

@@ -34,8 +34,8 @@ class SupplierSmartBoardModel(Base):
                                          comment='型式试验证书编号')
     smartb_manufacture_date = Column(Date, 
                                      comment='制造日期')
-    # user_id = Column(BigInteger, 
-    #                  comment='操作用户id')
+    user_id = Column(BigInteger, 
+                     comment='操作用户id')
     create_time = Column(DateTime(timezone=True), 
                          server_default=func.now(), 
                          comment='创建时间')
