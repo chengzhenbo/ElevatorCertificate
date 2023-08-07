@@ -82,6 +82,8 @@ class ExcelReader:
         if self.new_columns is not None:
             # 将中文列名转换更新为新的列名，方便导入到数据库
             self.df.columns = self.new_columns
+            if 'ZhiZhaoRiQi' in self.df.columns:
+                self.df['ZhiZhaoRiQi'] = self.df['ZhiZhaoRiQi'].astype('datetime64[ns]')
             
         return self.df
 
@@ -179,7 +181,6 @@ def paras_parser_file(sec_name:Sec_Name)->ParasParserExcel:
 
 def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
     """根据供应商类型和文件路径，读入excel数据返回pandas的dataframe类型数据"""
-    
     sec_name = get_sec_name(supplier_type=supplier_type)
     paras_parser = paras_parser_file(sec_name=sec_name)
     excel_reader = ExcelReader(file_path = path,
