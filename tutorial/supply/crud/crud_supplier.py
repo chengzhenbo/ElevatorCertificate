@@ -56,3 +56,11 @@ def delete_lvct_board(db: Session, lvct_board_id: UUID):
     lvct_board = db.query(SupplierLvctBoard).filter(SupplierLvctBoard.lvctb_id == lvct_board_id)
     db.delete(lvct_board)
     db.commit()
+
+def delete_lvct_board_on_days(db: Session, num_days:int = 1):
+    end_date = datetime.datetime.now()
+    start_date = datetime.datetime.now() - datetime.timedelta(days=num_days)
+    statement = delete(SupplierLvctBoard).where(SupplierLvctBoard.create_time > start_date,
+                                                 SupplierLvctBoard.create_time <= end_date )
+    db.execute(statement)
+    db.commit()

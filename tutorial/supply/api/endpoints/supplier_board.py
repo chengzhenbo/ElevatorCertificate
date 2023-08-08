@@ -3,7 +3,10 @@ from sqlalchemy.orm import Session
 from io import BytesIO
 
 from core.excel_reader import read_supplier_data, SupplierType
-from crud.crud_supplier import create_smart_board, create_lvct_board, delete_smart_board_on_days
+from crud.crud_supplier import (create_smart_board, 
+                                create_lvct_board, 
+                                delete_smart_board_on_days,
+                                delete_lvct_board_on_days)
 import schemas as schemas
 from api import deps
 
@@ -51,6 +54,7 @@ async def upload_board(file: UploadFile,
     else:
         raise HTTPException(status_code=404, detail="File can not open")
 
-@router.delete('/board/delete_smartboard/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/board/delete_boards/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_smartboard_by_numdays(db: Session = Depends(deps.get_db), num_days:int = 1):
     delete_smart_board_on_days(db=db, num_days = num_days)
+    delete_lvct_board_on_days(db=db, num_days = num_days)
