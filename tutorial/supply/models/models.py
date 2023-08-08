@@ -210,7 +210,7 @@ class SysElevatorCert合格证排班表(Base):
     readin_hetonginfo = relationship('ReadinHetonginfo', uselist=False, back_populates='sys_elevator_cert_合格证排班表')
     supplier_ared自动救援操作装置 = relationship('SupplierAred自动救援操作装置', back_populates='sys_elevator_cert_合格证排班表')
     supplier_buffer缓冲器 = relationship('SupplierBuffer缓冲器', back_populates='sys_elevator_cert_合格证排班表')
-    supplier_ic卡 = relationship('SupplierIc卡', back_populates='sys_elevator_cert_合格证排班表')
+    supplier_ic_card = relationship('SupplierIcCard', back_populates='sys_elevator_cert_合格证排班表')
     supplier_lvct1_board = relationship('SupplierLvct1Board', back_populates='sys_elevator_cert_合格证排班表')
     supplier_smart_board = relationship('SupplierSmartBoard', back_populates='sys_elevator_cert_合格证排班表')
     supplier_主机 = relationship('Supplier主机', back_populates='sys_elevator_cert_合格证排班表')
@@ -330,8 +330,8 @@ class SupplierBuffer缓冲器(Base):
     sys_elevator_cert_合格证排班表 = relationship('SysElevatorCert合格证排班表', back_populates='supplier_buffer缓冲器')
 
 
-class SupplierIc卡(Base):
-    __tablename__ = 'supplier_ic卡'
+class SupplierIcCard(Base):
+    __tablename__ = 'supplier_ic_card'
     __table_args__ = {'comment': 'IC卡'}
 
     ic_id = Column(BigInteger, primary_key=True, comment='ID号')
@@ -345,7 +345,7 @@ class SupplierIc卡(Base):
     ic_no = Column(String(100), comment='IC卡编号')
     hegezs_id = Column(BigInteger)
 
-    sys_elevator_cert_合格证排班表 = relationship('SysElevatorCert合格证排班表', back_populates='supplier_ic卡')
+    sys_elevator_cert_合格证排班表 = relationship('SysElevatorCert合格证排班表', back_populates='supplier_ic_card')
 
 
 class SupplierLvct1Board(Base):
