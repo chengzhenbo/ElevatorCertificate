@@ -11,7 +11,7 @@ class SmartBoardBase(BaseModel):
     smartb_model: Optional[str] = None
     smartb_manufacture_batch_no: Optional[str] = None
     smartb_type_testing_cert_no: Optional[str] = None
-    smartb_manufacture_date: Optional[date] = None
+    smartb_manufacture_date: Optional[date] = date.today()
     
 class SmartBoardCreate(SmartBoardBase):
     user_id: Optional[int] = None
@@ -62,4 +62,5 @@ class LvctBoard(LvctBoardInDBBase):
 class ListBoards(BaseModel):
     smartboards: List[SmartBoardInDBBase]
     lvctboards: List[LvctBoardInDBBase]
+    invalid_data_num: int = 0
 

@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import re
 import json
 import configparser
-from collections import namedtuple
+from typing import NamedTuple
 
 import pandas as pd
 import pypinyin
@@ -16,9 +16,14 @@ HERE = Path(__file__).resolve().parent
 CONFIG = configparser.ConfigParser()
 CONFIG.read(HERE/'exceltemplate.ini', encoding='utf-8')
 
-Sec_Name = namedtuple('Sec_Name', ['sec_name_colunms', 
-                                   'sec_name_hidx',
-                                   'sec_name_bianhao'])
+class SecName(NamedTuple):
+    sec_name_colunms:str
+    sec_name_hidx:str
+    sec_name_bianhao:str
+
+class SupplierData(NamedTuple):
+    valid_dataframe: DataFrame
+    invalid_dataframe: DataFrame
 
 class SupplierType(StrEnum):
     ZHUBAN_SMART = 'ZHUBAN_SMART'
@@ -72,9 +77,10 @@ class ExcelReader:
                                 dtype=str)
         # 检查excel文件列名
         self.check_header()
-        # 合同号为空的数据条目滤去
-        if '合同号' in self.df.columns:
-            self.df = self.df[self.df[['合同号']].notnull().all(1)]
+        # # 合同号为空的数据条目滤去
+        # if '合同号' in self.df.columns:
+        #     self.df = self.df[self.df[['合同号']].notnull().all(1)]
+
         # 制造日期列的数据格式转换
         if '制造日期' in self.df.columns:
             self.df['制造日期'] = self.df['制造日期'].astype('datetime64[ns]')
@@ -93,7 +99,7 @@ class ExcelReader:
             if self.df.columns.values[i].split('.')[0] != col:
                 raise ColumnHeaderError(col)
 
-def get_sec_name(supplier_type:SupplierType)->Sec_Name:
+def get_sec_name(supplier_type:SupplierType)->SecName:
     """根据供应商类型，得到解析配置文件所需的section名"""
     if supplier_type == SupplierType.ZHUBAN_SMART:
         sec_name_colunms = SupplierType.ZHUBAN_SMART.value + "_COLUMNS"
@@ -142,7 +148,7 @@ def get_sec_name(supplier_type:SupplierType)->Sec_Name:
     else:
         raise SupplierTypeError(supplier_type)
     
-    return Sec_Name(sec_name_colunms = sec_name_colunms, 
+    return SecName(sec_name_colunms = sec_name_colunms, 
                      sec_name_hidx = sec_name_hidx,
                      sec_name_bianhao = sec_name_bianhao)
      
@@ -156,7 +162,7 @@ def get_pingying_columns(columns:list[str])->list[str]:
         pinying_columns.append(p_col[0])
     return pinying_columns
 
-def paras_parser_file(sec_name:Sec_Name)->ParasParserExcel:
+def paras_parser_file(sec_name:SecName)->ParasParserExcel:
     """根据配置文件，解析读取excel文件所需的参数"""
     sec_name_colunms = sec_name.sec_name_colunms
     sec_name_hidx = sec_name.sec_name_hidx
@@ -189,10 +195,9 @@ def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
                                 columns = paras_parser.origin_columns,
                                 new_columns = paras_parser.new_columns)
     products = excel_reader()
-    # 根据配置文件中编号设置，将产品按编号组织数据
+    
     bianhao_idxs = paras_parser.bianhao_idxs
-
-    if len(bianhao_idxs) > 0:
+    if len(bianhao_idxs) > 0:  # 根据配置文件中编号设置，将产品按编号组织数据
         for i, bianhao in enumerate(bianhao_idxs):
             if i == 0:
                 product_0 = products[bianhao]
@@ -200,9 +205,15 @@ def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
                 product_1 = products[bianhao]
                 product_1.columns = product_0.columns
                 product_0 = pd.concat([product_0, product_1],ignore_index=True)
-
-        return product_0.dropna()
-    return products.dropna()
+        product_0_without_null = product_0.dropna()
+        product_0_with_null = product_0[product_0.isnull().any(axis=1)]
+        return SupplierData(valid_dataframe = product_0_without_null, 
+                            invalid_dataframe = product_0_with_null)
+    else: # 否则直接返回
+        products_without_null = products.dropna()
+        products_with_null = products[products.isnull().any(axis=1)]
+        return SupplierData(valid_dataframe = products_without_null, 
+                            invalid_dataframe = products_with_null)
 
 
 

@@ -36,11 +36,11 @@ class SupplierSmartBoard(Base):
                                      comment='制造日期')
     user_id = Column(BigInteger, 
                      comment='操作用户id')
-    create_time = Column(DateTime(timezone=True), 
-                         server_default=func.now(), 
+    create_time = Column(DateTime, 
+                         nullable=False, 
                          comment='创建时间')
-    update_time = Column(DateTime(timezone=True), 
-                         onupdate=func.now(), 
+    update_time = Column(DateTime, 
+                         nullable=False, 
                          comment='更新时间')
     remark = Column(String(100), nullable=True,
                     comment='备注')
@@ -65,11 +65,11 @@ class SupplierLvctBoard(Base):
                                      comment='制造日期')
     user_id = Column(BigInteger, 
                      comment='操作用户id')
-    create_time = Column(DateTime(timezone=True), 
-                         server_default=func.now(), 
+    create_time = Column(DateTime, 
+                         nullable=False, 
                          comment='创建时间')
-    update_time = Column(DateTime(timezone=True), 
-                         onupdate=func.now(), 
+    update_time = Column(DateTime, 
+                         nullable=False, 
                          comment='更新时间')
     remark = Column(String(100), 
                     comment='备注')
