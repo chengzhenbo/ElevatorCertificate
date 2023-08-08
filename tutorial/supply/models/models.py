@@ -343,7 +343,7 @@ class SupplierIcCard(Base):
     remark = Column(String(100), comment='备注')
     ic_model = Column(String(100), comment='IC卡型号')
     ic_no = Column(String(100), comment='IC卡编号')
-    hegezs_id = Column(BigInteger)
+    hegezs_id = Column(BigInteger, comment='合格证证书文件id')
 
     sys_elevator_cert_合格证排班表 = relationship('SysElevatorCert合格证排班表', back_populates='supplier_ic_card')
 
