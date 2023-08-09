@@ -53,10 +53,11 @@ async def upload_rope_heads(file: UploadFile,
     else:
         raise HTTPException(status_code=404, detail="File can not open")
     
+@router.delete('/delete_ropehead/{rope_head_id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete_smartboard_by_id(rope_head_id:UUID, db: Session = Depends(deps.get_db)):
+    crud_supplier_ropehead.delete_rope_head(db=db, rope_head_id = rope_head_id)
+
 @router.delete('/delete_ropeheads/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_ropehead_by_numdays(db: Session = Depends(deps.get_db), num_days:int = 1):
     crud_supplier_ropehead.delete_rope_head_on_days(db=db, num_days = num_days)
 
-@router.delete('/delete_ropehead/{rope_head_id}', status_code=status.HTTP_204_NO_CONTENT)
-def delete_smartboard_by_id(rope_head_id:UUID, db: Session = Depends(deps.get_db)):
-    crud_supplier_ropehead.delete_rope_head(db=db, rope_head_id = rope_head_id)

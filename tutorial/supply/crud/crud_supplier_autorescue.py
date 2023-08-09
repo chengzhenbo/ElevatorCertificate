@@ -13,7 +13,6 @@ def get_auto_rescue(db: Session, skip: int = 0, limit: int = 100):
 def create_auto_rescue(db: Session, 
                        autorescue: schemas.AutoRescueCreate)->models.SupplierAutoRescue:
     db_autorescue = models.SupplierAutoRescue(contract_no = autorescue.contract_no,
-                                              dept_name = autorescue.dept_name,
                                               auto_rescue_model = autorescue.auto_rescue_model,
                                               auto_rescue_no = autorescue.auto_rescue_no,
                                               user_id = autorescue.user_id,

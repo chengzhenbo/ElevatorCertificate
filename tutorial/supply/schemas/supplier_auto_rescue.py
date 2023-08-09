@@ -6,8 +6,7 @@ from pydantic import BaseModel
 
 class AutoRescueBase(BaseModel):
     contract_no: Optional[str] = None
-    dept_name: Optional[str] = None
-    ropehc_name: Optional[str] = None
+    # dept_name: Optional[str] = None
     auto_rescue_model: Optional[str] = None
     auto_rescue_no: Optional[str] = None
 
