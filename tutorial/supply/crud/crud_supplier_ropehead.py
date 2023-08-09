@@ -14,6 +14,7 @@ def create_rope_head(db: Session,
                        ropehead: schemas.RopeHeadCreate)->models.SupplierRopeHead:
     db_ropehead = models.SupplierRopeHead(contract_no = ropehead.contract_no,
                                           dept_name = ropehead.dept_name,
+                                          ropehc_name = ropehead.ropehc_name,
                                           ropehc_model = ropehead.ropehc_model,
                                           ropehc_manufacture_batch_no = ropehead.ropehc_manufacture_batch_no,
                                           ropehc_type_testing_cert_no = ropehead.ropehc_type_testing_cert_no,

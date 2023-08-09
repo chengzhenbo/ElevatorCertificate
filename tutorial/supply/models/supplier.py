@@ -83,6 +83,7 @@ class SupplierRopeHead(Base):
     contract_no = Column(String, 
                          comment='合同号')
     dept_name = Column(String(100), comment='制造单位')
+    ropehc_name = Column(String(100), comment='设备品种')
     ropehc_model = Column(String(100), comment='产品型号')
     ropehc_manufacture_batch_no = Column(String(100), comment='制造批次号')
     ropehc_type_testing_cert_no = Column(String(100), comment='型式试验证书编号')

@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class RopeHeadBase(BaseModel):
     contract_no: Optional[str] = None
     dept_name: Optional[str] = None
+    ropehc_name: Optional[str] = None
     ropehc_model: Optional[str] = None
     ropehc_manufacture_batch_no: Optional[str] = None
     ropehc_type_testing_cert_no: Optional[str] = None
@@ -29,5 +30,5 @@ class RopeHead(RopeHeadInDBBase):
     pass
 
 class ListRopeHeads(BaseModel):
-    ropeheads: List[RopeHeadBase]
+    ropeheads: List[RopeHeadInDBBase]
     invalid_data_num: int = 0
