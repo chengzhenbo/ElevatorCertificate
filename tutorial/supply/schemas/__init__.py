@@ -5,3 +5,6 @@ from .supplier_board import (SmartBoard,
                              LvctBoardCreate, 
                              ListLvctBoards,
                              ListBoards)
+from .supplier_rope_head import (RopeHead,
+                                 RopeHeadCreate,
+                                 ListRopeHeads)

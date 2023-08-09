@@ -11,6 +11,10 @@ def test_smart_board():
                                            path = "tests/supplier_excel_data/主板数据表.xlsx")
     print(smart_board)
 
+def test_sheng_tou():
+    sheng_tous = read_supplier_data(supplier_type=SupplierType.SHENGTOUZHUHE, 
+                                           path = "tests/supplier_excel_data/绳头组合.xlsx")
+    print(sheng_tous)
+
 if __name__ == '__main__':
-    test_lvpt_board()
-    # test_smart_board()
+    test_sheng_tou()

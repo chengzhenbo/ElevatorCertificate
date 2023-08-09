@@ -74,3 +74,24 @@ class SupplierLvctBoard(Base):
     remark = Column(String(100), 
                     comment='备注')
 
+class SupplierRopeHead(Base):
+    __tablename__ = 'supplier_RopeHead'
+    __table_args__ = {'comment': '绳头组合'}
+
+    ropehc_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+                        comment='ID号')
+    contract_no = Column(String, 
+                         comment='合同号')
+    dept_name = Column(String(100), comment='制造单位')
+    ropehc_model = Column(String(100), comment='产品型号')
+    ropehc_manufacture_batch_no = Column(String(100), comment='制造批次号')
+    ropehc_type_testing_cert_no = Column(String(100), comment='型式试验证书编号')
+    ropehc_manufacture_date = Column(Date, comment='制造日期')
+    user_id = Column(BigInteger, comment='操作用户id')
+    create_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='创建时间')
+    update_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='更新时间')
+    remark = Column(String(100), comment='备注')

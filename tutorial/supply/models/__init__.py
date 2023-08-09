@@ -1,1 +1,3 @@
-from .supplier import SupplierSmartBoard, SupplierLvctBoard
+from .supplier import (SupplierSmartBoard, 
+                       SupplierLvctBoard, 
+                       SupplierRopeHead)
