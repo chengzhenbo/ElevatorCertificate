@@ -30,7 +30,7 @@ def delete_auto_rescue(db: Session, auto_rescue_id: UUID):
 
 def delete_auto_rescue_on_days(db: Session, num_days:int = 1):
     end_date = datetime.datetime.now()
-    start_date = datetime.datetime.now() - datetime.timedelta(days=num_days)
+    start_date = end_date - datetime.timedelta(days=num_days)
     statement = delete(models.SupplierAutoRescue).where(models.SupplierAutoRescue.create_time > start_date,
                                                         models.SupplierAutoRescue.create_time <= end_date )
     db.execute(statement)

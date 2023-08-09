@@ -14,3 +14,7 @@ from .crud_supplier_autorescue import (get_auto_rescue,
                                        create_auto_rescue,
                                        delete_auto_rescue,
                                        delete_auto_rescue_on_days)
+from .crud_supplier_icard import (get_ic_card,
+                                  create_ic_card,
+                                  delete_ic_card,
+                                  delete_ic_card_on_days)

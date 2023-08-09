@@ -1,4 +1,5 @@
 from .supplier import (SupplierSmartBoard, 
                        SupplierLvctBoard, 
                        SupplierRopeHead,
-                       SupplierAutoRescue)
+                       SupplierAutoRescue,
+                       SupplierIcCard)

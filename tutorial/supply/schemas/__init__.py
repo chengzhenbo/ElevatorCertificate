@@ -11,3 +11,6 @@ from .supplier_rope_head import (RopeHead,
 from .supplier_auto_rescue import (AutoRescue, 
                                    AutoRescueCreate,
                                    ListAutoRescues)
+from .supplier_ic_card import (IcCard,
+                               IcCardCreate,
+                               ListIcCards)

@@ -116,4 +116,27 @@ class SupplierAutoRescue(Base):
                          nullable=False, 
                          comment='更新时间')
     remark = Column(String(100), comment='备注')
+
+class SupplierIcCard(Base):
+    __tablename__ = 'supplier_ic_card'
+    __table_args__ = {'comment': 'IC卡'}
+
+    icard_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+                        comment='ID号')
+    contract_no = Column(String, 
+                         comment='合同号')
+    dept_name = Column(String(100), comment='制造单位')
+    icard_model = Column(String(100), comment='IC卡型号')
+    icard_no = Column(String(100), comment='IC卡编号')
+    user_id = Column(BigInteger, comment='操作用户ID')
+    create_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='创建时间')
+    update_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='更新时间')
+    remark = Column(String(100), comment='备注')
+
+
+
     

@@ -34,7 +34,7 @@ def delete_rope_head(db: Session, rope_head_id: UUID):
 
 def delete_rope_head_on_days(db: Session, num_days:int = 1):
     end_date = datetime.datetime.now()
-    start_date = datetime.datetime.now() - datetime.timedelta(days=num_days)
+    start_date = end_date - datetime.timedelta(days=num_days)
     statement = delete(models.SupplierRopeHead).where(models.SupplierRopeHead.create_time > start_date,
                                                  models.SupplierRopeHead.create_time <= end_date )
     db.execute(statement)
