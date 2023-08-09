@@ -47,7 +47,6 @@ def create_lvct_board(db: Session,
 
 def delete_smart_board(db: Session, smart_board_id: UUID):
     smart_board = db.query(models.SupplierSmartBoard).get(str(smart_board_id))
-    print("smart_board = ", smart_board)
     db.delete(smart_board)
     db.commit()
 

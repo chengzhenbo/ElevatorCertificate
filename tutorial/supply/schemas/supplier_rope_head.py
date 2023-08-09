@@ -17,7 +17,7 @@ class RopeHeadCreate(RopeHeadBase):
     
 # Properties shared by models stored in DB
 class RopeHeadInDBBase(RopeHeadBase):
-    ropehc_id: Optional[UUID] = None
+    rope_head_id: Optional[UUID] = None
     user_id: Optional[int] = None 
     create_time: Optional[datetime] = None
 

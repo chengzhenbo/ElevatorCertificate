@@ -75,10 +75,10 @@ class SupplierLvctBoard(Base):
                     comment='备注')
 
 class SupplierRopeHead(Base):
-    __tablename__ = 'supplier_RopeHead'
+    __tablename__ = 'supplier_rope_head'
     __table_args__ = {'comment': '绳头组合'}
 
-    ropehc_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+    rope_head_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
                         comment='ID号')
     contract_no = Column(String, 
                          comment='合同号')
