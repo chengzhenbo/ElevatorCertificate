@@ -96,3 +96,24 @@ class SupplierRopeHead(Base):
                          nullable=False, 
                          comment='更新时间')
     remark = Column(String(100), comment='备注')
+
+class SupplierAutoRescue(Base):
+    __tablename__ = 'supplier_auto_rescue'
+    __table_args__ = {'comment': 'ARED 自动救援操作装置'}
+
+    auto_rescue_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+                        comment='ID号')
+    contract_no = Column(String, 
+                         comment='合同号')
+    dept_name = Column(String(100), comment='制造单位')
+    auto_rescue_model = Column(String(100), comment='型号')
+    auto_rescue_no = Column(String(100), comment='编号')
+    user_id = Column(BigInteger, comment='操作用户id')
+    create_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='创建时间')
+    update_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='更新时间')
+    remark = Column(String(100), comment='备注')
+    

@@ -4,3 +4,4 @@ from db.base_class import Base  # noqa
 from models.supplier import SupplierSmartBoard  # noqa
 from models.supplier import SupplierLvctBoard  # noqa
 from models.supplier import SupplierRopeHead  # noqa
+from models.supplier import SupplierAutoRescue

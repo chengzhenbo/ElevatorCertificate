@@ -8,3 +8,6 @@ from .supplier_board import (SmartBoard,
 from .supplier_rope_head import (RopeHead,
                                  RopeHeadCreate,
                                  ListRopeHeads)
+from .supplier_auto_rescue import (AutoRescue, 
+                                   AutoRescueCreate,
+                                   ListAutoRescues)
