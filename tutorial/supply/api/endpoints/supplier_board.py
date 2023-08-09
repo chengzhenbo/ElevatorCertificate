@@ -1,3 +1,5 @@
+from typing import List, Any
+
 from fastapi import APIRouter, Depends, UploadFile, status, HTTPException
 from sqlalchemy.orm import Session
 from io import BytesIO
@@ -6,13 +8,29 @@ from core.excel_reader import read_supplier_data, SupplierType
 from crud.crud_supplier import (create_smart_board, 
                                 create_lvct_board, 
                                 delete_smart_board_on_days,
-                                delete_lvct_board_on_days)
+                                delete_lvct_board_on_days,
+                                get_smart_boards,
+                                get_lvct_boards)
 import schemas as schemas
 from api import deps
 
 router = APIRouter()
 
-@router.post('/board', 
+@router.get('/smart_boards', response_model=List[schemas.SmartBoard])
+def read_smart_boards(db: Session = Depends(deps.get_db),
+                      skip: int = 0,
+                      limit: int = 100)->Any:
+    smart_boards = get_smart_boards(db=db, skip=skip, limit=limit)
+    return smart_boards
+
+@router.get('/lvct_boards', response_model=List[schemas.LvctBoard])
+def read_lvct_boards(db: Session = Depends(deps.get_db),
+                      skip: int = 0,
+                      limit: int = 100)->Any:
+    lvct_boards = get_lvct_boards(db=db, skip=skip, limit=limit)
+    return lvct_boards
+
+@router.post('/smart_lvct_boards', 
              response_model = schemas.ListBoards, 
              status_code=status.HTTP_201_CREATED)
 async def upload_board(file: UploadFile, 
@@ -54,7 +72,10 @@ async def upload_board(file: UploadFile,
     else:
         raise HTTPException(status_code=404, detail="File can not open")
 
-@router.delete('/board/delete_boards/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/board/delete_smartboards/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_smartboard_by_numdays(db: Session = Depends(deps.get_db), num_days:int = 1):
     delete_smart_board_on_days(db=db, num_days = num_days)
+
+@router.delete('/board/delete_lvctboards/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
+def delete_lvctboard_by_numdays(db: Session = Depends(deps.get_db), num_days:int = 1):
     delete_lvct_board_on_days(db=db, num_days = num_days)

@@ -1,5 +1,5 @@
 from typing import Optional,List
-from datetime import date
+from datetime import date,datetime
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -21,6 +21,7 @@ class SmartBoardCreate(SmartBoardBase):
 class SmartBoardInDBBase(SmartBoardBase):
     smartb_id: Optional[UUID] = None
     user_id: Optional[int] = None 
+    create_time: Optional[datetime] = None
 
     class Config:
         orm_mode = True
@@ -48,6 +49,7 @@ class LvctBoardCreate(LvctBoardBase):
 class LvctBoardInDBBase(LvctBoardBase):
     lvctb_id: Optional[UUID] = None
     user_id: Optional[int] = None 
+    create_time: Optional[datetime] = None
 
     class Config:
         orm_mode = True

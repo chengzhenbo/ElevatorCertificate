@@ -7,6 +7,9 @@ from sqlalchemy import delete
 from models.supplier import SupplierSmartBoard, SupplierLvctBoard
 import schemas as schemas
 
+def get_smart_boards(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(SupplierSmartBoard).offset(skip).limit(limit).all()
+
 def create_smart_board(db: Session, 
                        smartboard: schemas.SmartBoardCreate)->SupplierSmartBoard:
     db_smartboard = SupplierSmartBoard(contract_no = smartboard.contract_no,
@@ -36,6 +39,9 @@ def delete_smart_board_on_days(db: Session, num_days:int = 1):
     db.execute(statement)
     db.commit()
 
+def get_lvct_boards(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(SupplierLvctBoard).offset(skip).limit(limit).all()
+
 def create_lvct_board(db: Session, 
                       lvctboard: schemas.LvctBoardCreate)->SupplierLvctBoard:
     db_lvctboard = SupplierLvctBoard(contract_no = lvctboard.contract_no,
@@ -59,7 +65,7 @@ def delete_lvct_board(db: Session, lvct_board_id: UUID):
 
 def delete_lvct_board_on_days(db: Session, num_days:int = 1):
     end_date = datetime.datetime.now()
-    start_date = datetime.datetime.now() - datetime.timedelta(days=num_days)
+    start_date = end_date - datetime.timedelta(days=num_days)
     statement = delete(SupplierLvctBoard).where(SupplierLvctBoard.create_time > start_date,
                                                  SupplierLvctBoard.create_time <= end_date )
     db.execute(statement)
