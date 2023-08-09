@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from io import BytesIO
 
 from core.excel_reader import read_supplier_data, SupplierType
-import crud.crud_supplier as crud_supplier
+import crud.crud_supplier_board as crud_supplier_board
 import schemas as schemas
 from api import deps
 
@@ -16,20 +16,20 @@ router = APIRouter()
 def read_smart_boards(db: Session = Depends(deps.get_db),
                       skip: int = 0,
                       limit: int = 100)->Any:
-    smart_boards = crud_supplier.get_smart_boards(db=db, skip=skip, limit=limit)
+    smart_boards = crud_supplier_board.get_smart_boards(db=db, skip=skip, limit=limit)
     return smart_boards
 
 @router.get('/lvct_boards', response_model=List[schemas.LvctBoard])
 def read_lvct_boards(db: Session = Depends(deps.get_db),
                       skip: int = 0,
                       limit: int = 100)->Any:
-    lvct_boards = crud_supplier.get_lvct_boards(db=db, skip=skip, limit=limit)
+    lvct_boards = crud_supplier_board.get_lvct_boards(db=db, skip=skip, limit=limit)
     return lvct_boards
 
 @router.post('/smart_lvct_boards', 
              response_model = schemas.ListBoards, 
              status_code=status.HTTP_201_CREATED)
-async def upload_board(file: UploadFile, 
+async def upload_boards(file: UploadFile, 
                        db: Session = Depends(deps.get_db)):
     if file.filename.endswith('.xlsx'):
         f = await file.read()
@@ -50,7 +50,7 @@ async def upload_board(file: UploadFile,
         smartboards = []
         lvctboards = []
         for _, row in smartboard.valid_dataframe.iterrows():
-            db_smart_board = crud_supplier.create_smart_board(db=db,
+            db_smart_board = crud_supplier_board.create_smart_board(db=db,
                                                 smartboard = schemas.SmartBoardCreate(contract_no = row["HeTongHao"],
                                                       dept_name = row["ZhiZaoDanWei"],
                                                       smartb_model = row["ChanPingXingHao"],
@@ -60,7 +60,7 @@ async def upload_board(file: UploadFile,
                                                       user_id = 1))
             smartboards.append(db_smart_board)
         for _, row in lvctboard.valid_dataframe.iterrows():
-            db_lvct_board = crud_supplier.create_lvct_board(db=db,
+            db_lvct_board = crud_supplier_board.create_lvct_board(db=db,
                                               lvctboard = schemas.LvctBoardCreate(contract_no = row["HeTongHao"],
                                                       dept_name = row["ZhiZaoDanWei"],
                                                       lvct_model = row["ChanPingXingHao"],
@@ -76,18 +76,18 @@ async def upload_board(file: UploadFile,
     else:
         raise HTTPException(status_code=404, detail="File can not open")
 
-@router.delete('/board/delete_smartboards/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/delete_smartboards/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_smartboard_by_numdays(db: Session = Depends(deps.get_db), num_days:int = 1):
-    crud_supplier.delete_smart_board_on_days(db=db, num_days = num_days)
+    crud_supplier_board.delete_smart_board_on_days(db=db, num_days = num_days)
 
-@router.delete('/board/delete_lvctboards/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/delete_lvctboards/{num_days}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_lvctboard_by_numdays(db: Session = Depends(deps.get_db), num_days:int = 1):
-    crud_supplier.delete_lvct_board_on_days(db=db, num_days = num_days)
+    crud_supplier_board.delete_lvct_board_on_days(db=db, num_days = num_days)
 
-@router.delete('/board/delete_smartboard/{smart_board_id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/delete_smartboard/{smart_board_id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_smartboard_by_id(smart_board_id:UUID, db: Session = Depends(deps.get_db)):
-    crud_supplier.delete_smart_board(db=db, smart_board_id = smart_board_id)
+    crud_supplier_board.delete_smart_board(db=db, smart_board_id = smart_board_id)
 
-@router.delete('/board/delete_lvctboard/{lvct_board_id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/delete_lvctboard/{lvct_board_id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_lvctboard_by_id(lvct_board_id:UUID, db: Session = Depends(deps.get_db)):
-    crud_supplier.delete_lvct_board(db=db, lvct_board_id = lvct_board_id)
+    crud_supplier_board.delete_lvct_board(db=db, lvct_board_id = lvct_board_id)
