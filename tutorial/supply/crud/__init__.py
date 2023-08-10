@@ -18,3 +18,7 @@ from .crud_supplier_icard import (get_ic_card,
                                   create_ic_card,
                                   delete_ic_card,
                                   delete_ic_card_on_days)
+from .crud_supplier_safe_brake import (get_safe_brake, 
+                                       create_safe_brake, 
+                                       delete_safe_brake, 
+                                       delete_safe_brake_on_days)

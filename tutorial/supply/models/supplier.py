@@ -6,7 +6,7 @@ from sqlalchemy import (Column,
                         String, 
                         Date, 
                         DateTime, 
-                        Identity,
+                        Float,
                         text)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -135,6 +135,31 @@ class SupplierIcCard(Base):
     update_time = Column(DateTime, 
                          nullable=False, 
                          comment='更新时间')
+    remark = Column(String(100), comment='备注')
+
+class SupplierSafeBrake(Base):
+    __tablename__ = 'supplier_safe_brake'
+    __table_args__ = {'comment': '安全钳'}
+
+    safe_brake_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+                        comment='ID号')
+    contract_no = Column(String, 
+                         comment='合同号')
+    user_name = Column(String(100), comment='用户名称') 
+    dept_name = Column(String(100), comment='制造单位')
+    product_type_name = Column(String(100), comment='设备品种名称')
+    product_model = Column(String(100), comment='型号')
+    product_speed = Column(Float, comment='速度m/s')
+    product_no = Column(String(100), comment='编号')
+    product_testing_cert_no = Column(String(100), comment='型式试验证书编号')
+    manufacture_date = Column(Date, comment='制造日期')
+    create_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='创建时间')
+    update_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='更新时间')
+    user_id = Column(BigInteger, comment='操作用户ID')
     remark = Column(String(100), comment='备注')
 
 

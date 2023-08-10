@@ -3,7 +3,8 @@ from fastapi import APIRouter
 from api.endpoints import (supplier_board,
                            supplier_ropehead,
                            supplier_autorescue,
-                           supplier_icard)
+                           supplier_icard,
+                           supplier_safebrake)
 
 api_router = APIRouter()
 
@@ -19,3 +20,6 @@ api_router.include_router(supplier_autorescue.router,
 api_router.include_router(supplier_icard.router, 
                           prefix="/supplier/icard", 
                           tags=["supplier icard 供应商:IC卡"])
+api_router.include_router(supplier_safebrake.router, 
+                          prefix="/supplier/safebrake", 
+                          tags=["supplier safebrake 供应商:安全钳"])

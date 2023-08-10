@@ -11,7 +11,7 @@ class RopeHeadBase(BaseModel):
     ropehc_model: Optional[str] = None
     ropehc_manufacture_batch_no: Optional[str] = None
     ropehc_type_testing_cert_no: Optional[str] = None
-    ropehc_manufacture_date: Optional[date] = date.today()
+    ropehc_manufacture_date: Optional[date] = None
     
 class RopeHeadCreate(RopeHeadBase):
     user_id: Optional[int] = None

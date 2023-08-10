@@ -88,9 +88,13 @@ class ExcelReader:
         if self.new_columns is not None:
             # 将中文列名转换更新为新的列名，方便导入到数据库
             self.df.columns = self.new_columns
+            # TODO 列可能重名，现在用穷举的办法，后面应该设计更好的方法进行转换
             if 'ZhiZhaoRiQi' in self.df.columns:
                 self.df['ZhiZhaoRiQi'] = self.df['ZhiZhaoRiQi'].astype('datetime64[ns]')
-            
+            if 'ZhiZhaoRiQi1' in self.df.columns:
+                self.df['ZhiZhaoRiQi1'] = self.df['ZhiZhaoRiQi1'].astype('datetime64[ns]')
+            if 'ZhiZhaoRiQi2' in self.df.columns:
+                self.df['ZhiZhaoRiQi2'] = self.df['ZhiZhaoRiQi2'].astype('datetime64[ns]')    
         return self.df
 
     def check_header(self):
