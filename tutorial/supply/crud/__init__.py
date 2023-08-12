@@ -23,4 +23,7 @@ from .crud_supplier_safe_brake import (get_safe_brake,
                                        delete_safe_brake, 
                                        delete_safe_brake_on_days)
 from .crud_supplier_speedlimiter import (get_speed_limiters,
-                                         create_speed_limiters)
+                                         create_speed_limiter,
+                                         create_speed_limiters,
+                                         delete_speed_limiter,
+                                         delete_speed_limiter_on_days)

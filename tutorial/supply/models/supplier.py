@@ -168,7 +168,7 @@ class SupplierSpeedLimiter(Base):
     __tablename__ = 'supplier_speed_limiter'
     __table_args__ = {'comment': '限速器'}
 
-    safe_brake_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+    speed_limiter_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
                         comment='ID号')
     
     contract_no = Column(String, 

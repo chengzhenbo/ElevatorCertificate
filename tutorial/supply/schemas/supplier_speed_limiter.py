@@ -26,7 +26,7 @@ class SpeedLimiterCreate(SpeedLimiterBase):
 # Properties shared by models stored in DB
 class SpeedLimiterInDBBase(SpeedLimiterBase):
     data_state: Optional[str] = None
-    safe_brake_id: Optional[UUID] = None
+    speed_limiter_id: Optional[UUID] = None
     user_id: Optional[int] = None 
     create_time: Optional[datetime] = None
     
