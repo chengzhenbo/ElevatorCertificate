@@ -40,13 +40,11 @@ async def upload_boards(file: UploadFile,
         smartboard = read_supplier_data(supplier_type=SupplierType.ZHUBAN_SMART, 
                                            path = excelfile)
         if lvctboard.valid_dataframe.empty:
-            raise HTTPException(
-                    status_code=400,
-                    detail="lvct 主板有效数据为空.")
+            raise HTTPException(status_code=400,
+                                detail="lvct 主板有效数据为空.")
         if smartboard.valid_dataframe.empty:
-            raise HTTPException(
-                    status_code=400,
-                    detail="smart 主板有效数据为空.")
+            raise HTTPException(status_code=400,
+                                detail="smart 主板有效数据为空.")
         smartboards = []
         lvctboards = []
         for _, row in smartboard.valid_dataframe.iterrows():

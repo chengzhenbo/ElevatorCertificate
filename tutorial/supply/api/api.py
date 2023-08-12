@@ -4,7 +4,8 @@ from api.endpoints import (supplier_board,
                            supplier_ropehead,
                            supplier_autorescue,
                            supplier_icard,
-                           supplier_safebrake)
+                           supplier_safebrake,
+                           supplier_speedlimiter)
 
 api_router = APIRouter()
 
@@ -23,3 +24,6 @@ api_router.include_router(supplier_icard.router,
 api_router.include_router(supplier_safebrake.router, 
                           prefix="/supplier/safebrake", 
                           tags=["supplier safebrake 供应商:安全钳"])
+api_router.include_router(supplier_speedlimiter.router, 
+                          prefix="/supplier/speedlimiter", 
+                          tags=["supplier speedlimiter 供应商:限速器"])

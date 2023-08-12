@@ -16,6 +16,8 @@ from db.base_class import Base
 def generate_uuid():
     return str(uuid.uuid4())
 
+
+
 class SupplierSmartBoard(Base):
     __tablename__ = 'supplier_smart_board'
     __table_args__ = {'comment': '（含有电子元件的安全电路）SMART主板'}
@@ -160,6 +162,34 @@ class SupplierSafeBrake(Base):
                          nullable=False, 
                          comment='更新时间')
     user_id = Column(BigInteger, comment='操作用户ID')
+    remark = Column(String(100), comment='备注')
+
+class SupplierSpeedLimiter(Base):
+    __tablename__ = 'supplier_speed_limiter'
+    __table_args__ = {'comment': '限速器'}
+
+    safe_brake_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+                        comment='ID号')
+    
+    contract_no = Column(String, 
+                         comment='合同号')
+    project_name = Column(String(100), comment='项目名称') 
+    dept_name = Column(String(100), comment='制造单位')
+    product_type_name = Column(String(100), comment='设备品种名称')
+    product_model = Column(String(100), comment='型号')
+    product_speed = Column(Float, comment='速度m/s')
+    product_no = Column(String(100), comment='编号')
+    product_testing_cert_no = Column(String(100), comment='型式试验证书编号')
+    manufacture_date = Column(Date, comment='制造日期')
+
+    create_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='创建时间')
+    update_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='更新时间')
+    user_id = Column(BigInteger, comment='操作用户ID')
+    data_state = Column(String(10), comment='数据的状态') 
     remark = Column(String(100), comment='备注')
 
 

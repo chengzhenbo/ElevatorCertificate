@@ -199,6 +199,8 @@ def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
                                 columns = paras_parser.origin_columns,
                                 new_columns = paras_parser.new_columns)
     products = excel_reader()
+    if 'manufacture_date' in products.columns:
+        products['manufacture_date'] = products['manufacture_date'].astype('datetime64[ns]') 
     
     bianhao_idxs = paras_parser.bianhao_idxs
     if len(bianhao_idxs) > 0:  # 根据配置文件中编号设置，将产品按编号组织数据
@@ -209,6 +211,7 @@ def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
                 product_1 = products[bianhao]
                 product_1.columns = product_0.columns
                 product_0 = pd.concat([product_0, product_1],ignore_index=True)
+        
         product_0_without_null = product_0.dropna()
         product_0_with_null = product_0[product_0.isnull().any(axis=1)]
         return SupplierData(valid_dataframe = product_0_without_null, 

@@ -7,3 +7,4 @@ from models.supplier import SupplierRopeHead  # noqa
 from models.supplier import SupplierAutoRescue
 from models.supplier import SupplierIcCard
 from models.supplier import SupplierSafeBrake
+from models.supplier import SupplierSpeedLimiter

@@ -3,4 +3,5 @@ from .supplier import (SupplierSmartBoard,
                        SupplierRopeHead,
                        SupplierAutoRescue,
                        SupplierIcCard,
-                       SupplierSafeBrake)
+                       SupplierSafeBrake, 
+                       SupplierSpeedLimiter)
