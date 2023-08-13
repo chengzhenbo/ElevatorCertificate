@@ -32,3 +32,18 @@ from .crud_supplier_buffer import (get_buffers,
                                     create_buffers,
                                     delete_buffer,
                                     delete_buffer_on_days)
+from .crud_supplier_brake_machine import (get_brake_machines,
+                                    create_brake_machine,
+                                    create_brake_machines,
+                                    delete_brake_machine,
+                                    delete_brake_machine_on_days)
+from .crud_supplier_traction_machine import (get_traction_machines,
+                                    create_traction_machine,
+                                    create_traction_machines,
+                                    delete_traction_machine,
+                                    delete_traction_machine_on_days)
+from .crud_supplier_safety_machine import (get_safety_machines,
+                                    create_safety_machine,
+                                    create_safety_machines,
+                                    delete_safety_machine,
+                                    delete_safety_machine_on_days)

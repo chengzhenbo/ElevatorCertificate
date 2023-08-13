@@ -200,7 +200,6 @@ def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
                                 new_columns = paras_parser.new_columns)
     products = excel_reader()
     
-    
     bianhao_idxs = paras_parser.bianhao_idxs
     if len(bianhao_idxs) > 0:  # 根据配置文件中编号设置，将产品按编号组织数据
         for i, bianhao in enumerate(bianhao_idxs):

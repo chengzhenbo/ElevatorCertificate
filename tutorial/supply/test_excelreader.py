@@ -28,6 +28,16 @@ def test_xianshuqi():
     products = read_supplier_data(supplier_type=SupplierType.XIANSUQI, 
                                            path = "tests/supplier_excel_data/限速器缓冲器数据表.xlsx")
     print(products)
+def test_zhuji():
+    products_1 = read_supplier_data(supplier_type=SupplierType.ZHUJI_QUDONG, 
+                                           path = "tests/supplier_excel_data/主机数据表.xlsx")
+    products_2 = read_supplier_data(supplier_type=SupplierType.ZHUJI_YIDONGBAOHU, 
+                                           path = "tests/supplier_excel_data/主机数据表.xlsx")
+    products_3 = read_supplier_data(supplier_type=SupplierType.ZHUJI_ZHIDONG, 
+                                           path = "tests/supplier_excel_data/主机数据表.xlsx")
+    print(products_1)
+    print(products_2)
+    print(products_3)
 
 class ItemsModel(BaseModel):
     col1:list[int]
@@ -66,4 +76,4 @@ def test_dic_model_3():
     print(items)
 
 if __name__ == '__main__':
-    test_xianshuqi()
+    test_zhuji()

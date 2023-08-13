@@ -6,7 +6,8 @@ from api.endpoints import (supplier_board,
                            supplier_icard,
                            supplier_safebrake,
                            supplier_speedlimiter,
-                           supplier_buffer)
+                           supplier_buffer,
+                           supplier_machine)
 
 api_router = APIRouter()
 
@@ -31,3 +32,6 @@ api_router.include_router(supplier_speedlimiter.router,
 api_router.include_router(supplier_buffer.router, 
                           prefix="/supplier/buffer", 
                           tags=["supplier buffer 供应商:缓冲器"])
+api_router.include_router(supplier_machine.router, 
+                          prefix="/supplier/machine", 
+                          tags=["supplier machine 供应商:主机"])

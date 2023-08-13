@@ -9,3 +9,4 @@ from models.supplier import SupplierIcCard
 from models.supplier import SupplierSafeBrake
 from models.supplier import SupplierSpeedLimiter
 from models.supplier import SupplierBuffer
+from models.supplier import SupplierTractionMachine, SupplierBrakeMachine, SupplierSafetyMachine
