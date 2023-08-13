@@ -1,13 +1,13 @@
 from fastapi import APIRouter
 
-from api.endpoints import (supplier_board,
-                           supplier_ropehead,
-                           supplier_autorescue,
-                           supplier_icard,
-                           supplier_safebrake,
-                           supplier_speedlimiter,
-                           supplier_buffer,
-                           supplier_machine)
+from api.api_v1.endpoints import (supplier_board,
+                                    supplier_ropehead,
+                                    supplier_autorescue,
+                                    supplier_icard,
+                                    supplier_safebrake,
+                                    supplier_speedlimiter,
+                                    supplier_buffer,
+                                    supplier_machine)
 
 api_router = APIRouter()
 
