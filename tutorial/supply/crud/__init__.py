@@ -27,3 +27,8 @@ from .crud_supplier_speedlimiter import (get_speed_limiters,
                                          create_speed_limiters,
                                          delete_speed_limiter,
                                          delete_speed_limiter_on_days)
+from .crud_supplier_buffer import (get_buffers,
+                                    create_buffer,
+                                    create_buffers,
+                                    delete_buffer,
+                                    delete_buffer_on_days)
