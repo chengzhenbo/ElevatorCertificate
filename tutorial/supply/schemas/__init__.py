@@ -16,3 +16,4 @@ from .supplier_traction_machine import (TractionMachine, TractionMachineCreate, 
 from .supplier_safety_machine import (SafetyMachine, SafetyMachineCreate, ListSafetyMachines)
 from .supplier_brake_machine import (BrakeMachine, BrakeMachineCreate, ListBrakeMachines)
 from .supplier_wire_rope import (WireRope, WireRopeCreate, ListWireRopes)
+from .supplier_buffer_speedlimiters import Buffer_Speedlimiters

@@ -8,7 +8,8 @@ from api.api_v1.endpoints import (supplier_board,
                                     supplier_speedlimiter,
                                     supplier_buffer,
                                     supplier_machine,
-                                    supplier_wirerope)
+                                    supplier_wirerope,
+                                    supplier_buffer_speedlimiter)
 
 api_router = APIRouter()
 
@@ -30,6 +31,9 @@ api_router.include_router(supplier_safebrake.router,
 api_router.include_router(supplier_speedlimiter.router, 
                           prefix="/supplier/speedlimiter", 
                           tags=["supplier speedlimiter 供应商:限速器"])
+api_router.include_router(supplier_buffer_speedlimiter.router, 
+                          prefix="/supplier/buffer_speedlimiter", 
+                          tags=["supplier buffer_speedlimiter 供应商:安全钳与限速器"])
 api_router.include_router(supplier_buffer.router, 
                           prefix="/supplier/buffer", 
                           tags=["supplier buffer 供应商:缓冲器"])
