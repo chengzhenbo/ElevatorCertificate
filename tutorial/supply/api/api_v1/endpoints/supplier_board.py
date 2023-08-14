@@ -41,10 +41,10 @@ async def upload_boards(file: UploadFile,
                                            path = excelfile)
         if lvctboard.valid_dataframe.empty:
             raise HTTPException(status_code=400,
-                                detail="lvct 主板有效数据为空.")
+                                detail="lvct主板有效数据为空.")
         if smartboard.valid_dataframe.empty:
             raise HTTPException(status_code=400,
-                                detail="smart 主板有效数据为空.")
+                                detail="smart主板有效数据为空.")
         smartboards = []
         lvctboards = []
         for _, row in smartboard.valid_dataframe.iterrows():
