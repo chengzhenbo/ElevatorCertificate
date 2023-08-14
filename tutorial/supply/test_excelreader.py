@@ -75,5 +75,9 @@ def test_dic_model_3():
     
     print(items)
 
+def test_gangshisheng():
+    products_1 = read_supplier_data(supplier_type=SupplierType.GANGSHISHENG, 
+                                           path = "tests/supplier_excel_data/钢丝绳数据表.xlsx")
+    print(products_1.valid_dataframe)
 if __name__ == '__main__':
-    test_zhuji()
+    test_gangshisheng()

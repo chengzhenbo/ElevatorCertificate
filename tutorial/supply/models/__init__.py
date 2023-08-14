@@ -8,4 +8,5 @@ from .supplier import (SupplierSmartBoard,
                        SupplierBuffer,
                        SupplierTractionMachine,
                        SupplierBrakeMachine,
-                       SupplierSafetyMachine)
+                       SupplierSafetyMachine,
+                       SupplierWireRope)

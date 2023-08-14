@@ -6,6 +6,7 @@ from sqlalchemy import (Column,
                         String, 
                         Date, 
                         DateTime, 
+                        Integer,
                         Float,
                         text)
 from sqlalchemy.orm import relationship
@@ -285,6 +286,32 @@ class SupplierSafetyMachine(Base):
     product_no = Column(String(100), comment='编号')
     product_testing_cert_no = Column(String(100), comment='型式试验证书编号')
     manufacture_date = Column(Date, comment='制造日期')
+
+    create_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='创建时间')
+    update_time = Column(DateTime, 
+                         nullable=False, 
+                         comment='更新时间')
+    user_id = Column(BigInteger, comment='操作用户ID')
+    data_state = Column(String(10), comment='数据的状态') 
+    remark = Column(String(100), comment='备注')  
+
+class SupplierWireRope(Base):
+    __tablename__ = 'supplier_wire_rope'
+    __table_args__ = {'comment': '钢丝绳'}
+
+    wire_rope_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+                        comment='ID号')
+    
+    wr_contract_no = Column(String,comment='合同号')
+    wr_product_name = Column(String(50), comment='产品名称')
+    wr_dept_name = Column(String(50), comment='制造单位')
+    wr_product_testing_cert = Column(String(50), comment='检测报告')
+    wr_product_model = Column(String(50), comment='规格')
+    wr_product_matric = Column(String(10), comment='度量')
+    wr_product_value = Column(Float, comment='数值')
+    wr_product_num = Column(Integer, comment='根数')
 
     create_time = Column(DateTime, 
                          nullable=False, 

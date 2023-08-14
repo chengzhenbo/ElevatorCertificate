@@ -1,8 +1,8 @@
 """create new model
 
-Revision ID: 388a422a7fd3
+Revision ID: 1758cacb9330
 Revises: 
-Create Date: 2023-08-12 14:39:21.942355
+Create Date: 2023-08-13 21:52:08.189986
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '388a422a7fd3'
+revision = '1758cacb9330'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,6 +32,45 @@ def upgrade() -> None:
     comment='ARED 自动救援操作装置'
     )
     op.create_index(op.f('ix_supplier_auto_rescue_auto_rescue_id'), 'supplier_auto_rescue', ['auto_rescue_id'], unique=False)
+    op.create_table('supplier_brake_machine',
+    sa.Column('brake_machine_id', sa.String(), nullable=False, comment='ID号'),
+    sa.Column('contract_no', sa.String(), nullable=True, comment='合同号'),
+    sa.Column('dept_name', sa.String(length=100), nullable=True, comment='制造单位'),
+    sa.Column('product_type_name', sa.String(length=100), nullable=True, comment='设备品种名称'),
+    sa.Column('product_model', sa.String(length=100), nullable=True, comment='型号'),
+    sa.Column('product_no', sa.String(length=100), nullable=True, comment='编号'),
+    sa.Column('product_testing_cert_no', sa.String(length=100), nullable=True, comment='型式试验证书编号'),
+    sa.Column('manufacture_date', sa.Date(), nullable=True, comment='制造日期'),
+    sa.Column('create_time', sa.DateTime(), nullable=False, comment='创建时间'),
+    sa.Column('update_time', sa.DateTime(), nullable=False, comment='更新时间'),
+    sa.Column('user_id', sa.BigInteger(), nullable=True, comment='操作用户ID'),
+    sa.Column('data_state', sa.String(length=10), nullable=True, comment='数据的状态'),
+    sa.Column('remark', sa.String(length=100), nullable=True, comment='备注'),
+    sa.PrimaryKeyConstraint('brake_machine_id'),
+    comment='制动器'
+    )
+    op.create_index(op.f('ix_supplier_brake_machine_brake_machine_id'), 'supplier_brake_machine', ['brake_machine_id'], unique=False)
+    op.create_table('supplier_buffer',
+    sa.Column('buffer_id', sa.String(), nullable=False, comment='ID号'),
+    sa.Column('contract_no', sa.String(), nullable=True, comment='合同号'),
+    sa.Column('project_name', sa.String(length=100), nullable=True, comment='项目名称'),
+    sa.Column('dept_name', sa.String(length=100), nullable=True, comment='制造单位'),
+    sa.Column('product_type_name', sa.String(length=100), nullable=True, comment='设备品种名称'),
+    sa.Column('product_model', sa.String(length=100), nullable=True, comment='型号'),
+    sa.Column('product_speed', sa.Float(), nullable=True, comment='速度m/s'),
+    sa.Column('product_no', sa.String(length=100), nullable=True, comment='编号'),
+    sa.Column('product_batch_no', sa.String(length=100), nullable=True, comment='产品批次号'),
+    sa.Column('product_testing_cert_no', sa.String(length=100), nullable=True, comment='型式试验证书编号'),
+    sa.Column('manufacture_date', sa.Date(), nullable=True, comment='制造日期'),
+    sa.Column('create_time', sa.DateTime(), nullable=False, comment='创建时间'),
+    sa.Column('update_time', sa.DateTime(), nullable=False, comment='更新时间'),
+    sa.Column('user_id', sa.BigInteger(), nullable=True, comment='操作用户ID'),
+    sa.Column('data_state', sa.String(length=10), nullable=True, comment='数据的状态'),
+    sa.Column('remark', sa.String(length=100), nullable=True, comment='备注'),
+    sa.PrimaryKeyConstraint('buffer_id'),
+    comment='缓冲器'
+    )
+    op.create_index(op.f('ix_supplier_buffer_buffer_id'), 'supplier_buffer', ['buffer_id'], unique=False)
     op.create_table('supplier_ic_card',
     sa.Column('icard_id', sa.String(), nullable=False, comment='ID号'),
     sa.Column('contract_no', sa.String(), nullable=True, comment='合同号'),
@@ -98,6 +137,24 @@ def upgrade() -> None:
     comment='安全钳'
     )
     op.create_index(op.f('ix_supplier_safe_brake_safe_brake_id'), 'supplier_safe_brake', ['safe_brake_id'], unique=False)
+    op.create_table('supplier_safety_machine',
+    sa.Column('safety_machine_id', sa.String(), nullable=False, comment='ID号'),
+    sa.Column('contract_no', sa.String(), nullable=True, comment='合同号'),
+    sa.Column('dept_name', sa.String(length=100), nullable=True, comment='制造单位'),
+    sa.Column('product_type_name', sa.String(length=100), nullable=True, comment='设备品种名称'),
+    sa.Column('product_model', sa.String(length=100), nullable=True, comment='型号'),
+    sa.Column('product_no', sa.String(length=100), nullable=True, comment='编号'),
+    sa.Column('product_testing_cert_no', sa.String(length=100), nullable=True, comment='型式试验证书编号'),
+    sa.Column('manufacture_date', sa.Date(), nullable=True, comment='制造日期'),
+    sa.Column('create_time', sa.DateTime(), nullable=False, comment='创建时间'),
+    sa.Column('update_time', sa.DateTime(), nullable=False, comment='更新时间'),
+    sa.Column('user_id', sa.BigInteger(), nullable=True, comment='操作用户ID'),
+    sa.Column('data_state', sa.String(length=10), nullable=True, comment='数据的状态'),
+    sa.Column('remark', sa.String(length=100), nullable=True, comment='备注'),
+    sa.PrimaryKeyConstraint('safety_machine_id'),
+    comment='轿厢保护装置'
+    )
+    op.create_index(op.f('ix_supplier_safety_machine_safety_machine_id'), 'supplier_safety_machine', ['safety_machine_id'], unique=False)
     op.create_table('supplier_smart_board',
     sa.Column('smartb_id', sa.String(), nullable=False, comment='ID号'),
     sa.Column('contract_no', sa.String(), nullable=True, comment='合同号'),
@@ -134,15 +191,37 @@ def upgrade() -> None:
     comment='限速器'
     )
     op.create_index(op.f('ix_supplier_speed_limiter_speed_limiter_id'), 'supplier_speed_limiter', ['speed_limiter_id'], unique=False)
+    op.create_table('supplier_traction_machine',
+    sa.Column('traction_machine_id', sa.String(), nullable=False, comment='ID号'),
+    sa.Column('contract_no', sa.String(), nullable=True, comment='合同号'),
+    sa.Column('dept_name', sa.String(length=100), nullable=True, comment='制造单位'),
+    sa.Column('product_type_name', sa.String(length=100), nullable=True, comment='设备品种名称'),
+    sa.Column('product_model', sa.String(length=100), nullable=True, comment='型号'),
+    sa.Column('product_no', sa.String(length=100), nullable=True, comment='编号'),
+    sa.Column('product_testing_cert_no', sa.String(length=100), nullable=True, comment='型式试验证书编号'),
+    sa.Column('manufacture_date', sa.Date(), nullable=True, comment='制造日期'),
+    sa.Column('create_time', sa.DateTime(), nullable=False, comment='创建时间'),
+    sa.Column('update_time', sa.DateTime(), nullable=False, comment='更新时间'),
+    sa.Column('user_id', sa.BigInteger(), nullable=True, comment='操作用户ID'),
+    sa.Column('data_state', sa.String(length=10), nullable=True, comment='数据的状态'),
+    sa.Column('remark', sa.String(length=100), nullable=True, comment='备注'),
+    sa.PrimaryKeyConstraint('traction_machine_id'),
+    comment='驱动主机'
+    )
+    op.create_index(op.f('ix_supplier_traction_machine_traction_machine_id'), 'supplier_traction_machine', ['traction_machine_id'], unique=False)
     # ### end Alembic commands ###
 
 
 def downgrade() -> None:
     # ### commands auto generated by Alembic - please adjust! ###
+    op.drop_index(op.f('ix_supplier_traction_machine_traction_machine_id'), table_name='supplier_traction_machine')
+    op.drop_table('supplier_traction_machine')
     op.drop_index(op.f('ix_supplier_speed_limiter_speed_limiter_id'), table_name='supplier_speed_limiter')
     op.drop_table('supplier_speed_limiter')
     op.drop_index(op.f('ix_supplier_smart_board_smartb_id'), table_name='supplier_smart_board')
     op.drop_table('supplier_smart_board')
+    op.drop_index(op.f('ix_supplier_safety_machine_safety_machine_id'), table_name='supplier_safety_machine')
+    op.drop_table('supplier_safety_machine')
     op.drop_index(op.f('ix_supplier_safe_brake_safe_brake_id'), table_name='supplier_safe_brake')
     op.drop_table('supplier_safe_brake')
     op.drop_index(op.f('ix_supplier_rope_head_rope_head_id'), table_name='supplier_rope_head')
@@ -151,6 +230,10 @@ def downgrade() -> None:
     op.drop_table('supplier_lvct_board')
     op.drop_index(op.f('ix_supplier_ic_card_icard_id'), table_name='supplier_ic_card')
     op.drop_table('supplier_ic_card')
+    op.drop_index(op.f('ix_supplier_buffer_buffer_id'), table_name='supplier_buffer')
+    op.drop_table('supplier_buffer')
+    op.drop_index(op.f('ix_supplier_brake_machine_brake_machine_id'), table_name='supplier_brake_machine')
+    op.drop_table('supplier_brake_machine')
     op.drop_index(op.f('ix_supplier_auto_rescue_auto_rescue_id'), table_name='supplier_auto_rescue')
     op.drop_table('supplier_auto_rescue')
     # ### end Alembic commands ###

@@ -47,3 +47,8 @@ from .crud_supplier_safety_machine import (get_safety_machines,
                                     create_safety_machines,
                                     delete_safety_machine,
                                     delete_safety_machine_on_days)
+from .crud_supplier_wire_rope import (get_wire_ropes,
+                                    create_wire_rope,
+                                    create_wire_ropes,
+                                    delete_wire_rope,
+                                    delete_wire_rope_on_days)
