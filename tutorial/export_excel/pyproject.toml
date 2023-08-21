@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "export-excel"
+version = "0.1.0"
+description = ""
+authors = ["chengzhenbo <50646861+chengzhenbo@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "export_excel"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openpyxl = "^3.1.2"
+pillow = "^10.0.0"
+fastapi = "^0.101.1"
+qrcode = "^7.4.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
