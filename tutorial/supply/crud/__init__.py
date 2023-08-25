@@ -52,3 +52,8 @@ from .crud_supplier_wire_rope import (get_wire_ropes,
                                     create_wire_ropes,
                                     delete_wire_rope,
                                     delete_wire_rope_on_days)
+from .crud_supplier_doorsystem import (get_door_systems,
+                                    create_door_system,
+                                    create_door_systems,
+                                    delete_door_system,
+                                    delete_door_system_on_days)

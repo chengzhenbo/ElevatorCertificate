@@ -8,3 +8,11 @@ class DataState(str,Enum):
     Completed = "completed"  # 总公司已经打印了该数据
     Updated = "updated"      # 已经打印的数据，发生了修改（TODO：可以考虑记录修改痕迹）
     Deleted = "deleted"      # 删除已经打印的数据
+
+class DoorSystemType(str, Enum):
+    LandingDoor = "层门"
+    FireDoor = "防火门"
+    GlassCarDoor = "玻璃轿门"
+    GlassCarWall = "玻璃轿壁"
+    HallDoorLock = "厅门锁"
+    CarDoorLock = "轿门锁"

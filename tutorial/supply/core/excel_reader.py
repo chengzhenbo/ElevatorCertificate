@@ -38,6 +38,12 @@ class SupplierType(StrEnum):
     XIANSUQI = 'XIANSUQI'
     HUANCHONGQI = 'HUANCHONGQI'
     GANGSHISHENG = 'GANGSHISHENG'
+    MENXITONG_1 = 'MENXITONG_1'
+    MENXITONG_2 = 'MENXITONG_2'
+    MENXITONG_3 = 'MENXITONG_3'
+    MENXITONG_4 = 'MENXITONG_4'
+    MENXITONG_5 = 'MENXITONG_5'
+    MENXITONG_6 = 'MENXITONG_6'
 
 @dataclass
 class ParasParserExcel():
@@ -154,6 +160,30 @@ def get_sec_name(supplier_type:SupplierType)->SecName:
         sec_name_colunms = SupplierType.GANGSHISHENG.value + "_COLUMNS"
         sec_name_hidx = SupplierType.GANGSHISHENG.value + "_IND"
         sec_name_bianhao = SupplierType.GANGSHISHENG.value + "_BIANHAO"
+    elif supplier_type == SupplierType.MENXITONG_1:
+        sec_name_colunms = SupplierType.MENXITONG_1.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.MENXITONG_1.value + "_IND"
+        sec_name_bianhao = SupplierType.MENXITONG_1.value + "_BIANHAO"    
+    elif supplier_type == SupplierType.MENXITONG_2:
+        sec_name_colunms = SupplierType.MENXITONG_2.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.MENXITONG_2.value + "_IND"
+        sec_name_bianhao = SupplierType.MENXITONG_2.value + "_BIANHAO"  
+    elif supplier_type == SupplierType.MENXITONG_3:
+        sec_name_colunms = SupplierType.MENXITONG_3.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.MENXITONG_3.value + "_IND"
+        sec_name_bianhao = SupplierType.MENXITONG_3.value + "_BIANHAO"  
+    elif supplier_type == SupplierType.MENXITONG_4:
+        sec_name_colunms = SupplierType.MENXITONG_4.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.MENXITONG_4.value + "_IND"
+        sec_name_bianhao = SupplierType.MENXITONG_4.value + "_BIANHAO"  
+    elif supplier_type == SupplierType.MENXITONG_5:
+        sec_name_colunms = SupplierType.MENXITONG_5.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.MENXITONG_5.value + "_IND"
+        sec_name_bianhao = SupplierType.MENXITONG_5.value + "_BIANHAO"  
+    elif supplier_type == SupplierType.MENXITONG_6:
+        sec_name_colunms = SupplierType.MENXITONG_6.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.MENXITONG_6.value + "_IND"
+        sec_name_bianhao = SupplierType.MENXITONG_6.value + "_BIANHAO"  
     else:
         raise SupplierTypeError(supplier_type)
     
@@ -187,7 +217,7 @@ def paras_parser_file(sec_name:SecName)->ParasParserExcel:
     header_idx = CONFIG.getint(sec_name_hidx, 'header_idx'),
     usecols = ','.join(CONFIG.options(sec_name_colunms))
     bianhao_idxs = json.loads(CONFIG.get(sec_name_bianhao, 'bianhao_idx'))
-
+    
     return ParasParserExcel(origin_columns = origin_columns,
                             new_columns = new_columns,
                             bianhao_idxs = bianhao_idxs,
@@ -196,8 +226,10 @@ def paras_parser_file(sec_name:SecName)->ParasParserExcel:
 
 def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
     """根据供应商类型和文件路径，读入excel数据返回pandas的dataframe类型数据"""
+    
     sec_name = get_sec_name(supplier_type=supplier_type)
     paras_parser = paras_parser_file(sec_name=sec_name)
+    
     excel_reader = ExcelReader(file_path = path,
                                 header_idx = paras_parser.header_idx,
                                 usecols = paras_parser.usecols,

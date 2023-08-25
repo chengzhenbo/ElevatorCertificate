@@ -1,4 +1,4 @@
-from .supplier import DataState
+from .supplier import DataState,DoorSystemType
 from .supplier_board import (SmartBoard, 
                              SmartBoardCreate, 
                              ListSmartBoards,
@@ -17,3 +17,4 @@ from .supplier_safety_machine import (SafetyMachine, SafetyMachineCreate, ListSa
 from .supplier_brake_machine import (BrakeMachine, BrakeMachineCreate, ListBrakeMachines)
 from .supplier_wire_rope import (WireRope, WireRopeCreate, ListWireRopes)
 from .supplier_buffer_speedlimiters import Buffer_Speedlimiters
+from .supplier_door_system import(DoorSystem, DoorSystemCreate, ListDoorSystems)

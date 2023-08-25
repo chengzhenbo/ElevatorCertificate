@@ -11,3 +11,4 @@ from models.supplier import SupplierSpeedLimiter
 from models.supplier import SupplierBuffer
 from models.supplier import SupplierTractionMachine, SupplierBrakeMachine, SupplierSafetyMachine
 from models.supplier import SupplierWireRope
+from models.supplier import ModelSupplierKongZhiGuiMenXiTong

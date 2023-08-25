@@ -9,7 +9,8 @@ from api.api_v1.endpoints import (supplier_board,
                                     supplier_buffer,
                                     supplier_machine,
                                     supplier_wirerope,
-                                    supplier_buffer_speedlimiter)
+                                    supplier_buffer_speedlimiter,
+                                    supplier_doorsystem)
 
 api_router = APIRouter()
 
@@ -43,3 +44,6 @@ api_router.include_router(supplier_machine.router,
 api_router.include_router(supplier_wirerope.router, 
                           prefix="/supplier/wirerope", 
                           tags=["supplier wirerope 供应商:钢丝绳"])
+api_router.include_router(supplier_doorsystem.router, 
+                          prefix="/supplier/doorsystem", 
+                          tags=["supplier doorsystem 供应商:门系统"])

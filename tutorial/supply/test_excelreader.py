@@ -77,7 +77,29 @@ def test_dic_model_3():
 
 def test_gangshisheng():
     products_1 = read_supplier_data(supplier_type=SupplierType.GANGSHISHENG, 
-                                           path = "tests/supplier_excel_data/钢丝绳数据表.xlsx")
+                                    path = "tests/supplier_excel_data/钢丝绳数据表.xlsx")
     print(products_1.valid_dataframe)
+
+def test_menxitong():
+    products_1 = read_supplier_data(supplier_type=SupplierType.MENXITONG_1, 
+                                    path = "tests/supplier_excel_data/门系统数据表.xlsx")
+    products_2 = read_supplier_data(supplier_type=SupplierType.MENXITONG_2, 
+                                    path = "tests/supplier_excel_data/门系统数据表.xlsx")
+    products_3 = read_supplier_data(supplier_type=SupplierType.MENXITONG_3, 
+                                    path = "tests/supplier_excel_data/门系统数据表.xlsx")
+    products_4 = read_supplier_data(supplier_type=SupplierType.MENXITONG_4, 
+                                    path = "tests/supplier_excel_data/门系统数据表.xlsx")
+    products_5 = read_supplier_data(supplier_type=SupplierType.MENXITONG_5, 
+                                    path = "tests/supplier_excel_data/门系统数据表.xlsx")
+    products_6 = read_supplier_data(supplier_type=SupplierType.MENXITONG_6, 
+                                    path = "tests/supplier_excel_data/门系统数据表.xlsx")
+    print("1 ", products_1.valid_dataframe)
+    print("2 ", products_2.valid_dataframe)
+    print("3 ", products_3.valid_dataframe)
+    print("4 ", products_4.valid_dataframe)
+    print("5 ", products_5.valid_dataframe)
+    print("6 ", products_6.valid_dataframe)
+
+    
 if __name__ == '__main__':
-    test_gangshisheng()
+    test_menxitong()
