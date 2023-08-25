@@ -324,9 +324,9 @@ class SupplierWireRope(Base):
     remark = Column(String(100), comment='备注') 
 
 
-class ModelSupplierKongZhiGuiMenXiTong(Base):
-    __tablename__ = 'supplier_控制柜和门系统'
-    __table_args__ = {'comment': '控制柜和门系统'}
+class ModelSupplierMenXiTong(Base):
+    __tablename__ = 'supplier_门系统'
+    __table_args__ = {'comment': '门系统'}
 
     door_system_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
                         comment='ID号')

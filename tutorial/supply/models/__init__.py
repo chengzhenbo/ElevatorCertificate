@@ -10,4 +10,4 @@ from .supplier import (SupplierSmartBoard,
                        SupplierBrakeMachine,
                        SupplierSafetyMachine,
                        SupplierWireRope,
-                       ModelSupplierKongZhiGuiMenXiTong)
+                       ModelSupplierMenXiTong)
