@@ -339,7 +339,27 @@ class ModelSupplierMenXiTong(Base):
     user_id = Column(String(64), comment='操作用户id')
     create_time = Column(DateTime(True), server_default=text('now()'), comment='创建时间')
     update_time = Column(DateTime(True), server_default=text('now()'), comment='更新时间')
-    remark = Column(String(100), comment='控制柜,层门,防火门,玻璃轿门,玻璃轿壁，厅门锁，轿门锁')
+    remark = Column(String(100), comment='层门,防火门,玻璃轿门,玻璃轿壁，厅门锁，轿门锁')
+    status = Column(String(255))
+    type_name = Column(String(255), comment='设备品种') 
+    data_state = Column(String(10), comment='数据的状态') 
+
+class ModelSupplierKongZhiGui(Base):
+    __tablename__ = 'supplier_控制柜'
+    __table_args__ = {'comment': '控制柜'}
+
+    control_cabinet_id = Column(String, primary_key=True, default=generate_uuid, index=True, 
+                        comment='ID号')
+    contract_no = Column(String(100), comment='合同号')
+    dept_name = Column(String(100), comment='制造单位')
+    model = Column(String(100), comment='型号')
+    batch_no = Column(String(100), comment='编号')
+    type_testing_cert_no = Column(String(100), comment='型式试验证书编号')
+    manufacture_date = Column(Date, comment='制造日期')
+    user_id = Column(String(64), comment='操作用户id')
+    create_time = Column(DateTime(True), server_default=text('now()'), comment='创建时间')
+    update_time = Column(DateTime(True), server_default=text('now()'), comment='更新时间')
+    remark = Column(String(100), comment='备注') 
     status = Column(String(255))
     type_name = Column(String(255), comment='设备品种') 
     data_state = Column(String(10), comment='数据的状态') 

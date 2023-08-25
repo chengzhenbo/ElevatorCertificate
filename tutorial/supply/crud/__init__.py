@@ -57,3 +57,8 @@ from .crud_supplier_doorsystem import (get_door_systems,
                                     create_door_systems,
                                     delete_door_system,
                                     delete_door_system_on_days)
+from .crud_supplier_controlcabinet import (get_control_cabinets,
+                                    create_control_cabinet,
+                                    create_control_cabinets,
+                                    delete_control_cabinet,
+                                    delete_control_cabinet_on_days)

@@ -44,6 +44,7 @@ class SupplierType(StrEnum):
     MENXITONG_4 = 'MENXITONG_4'
     MENXITONG_5 = 'MENXITONG_5'
     MENXITONG_6 = 'MENXITONG_6'
+    KONGZHIGUI = 'KONGZHIGUI'
 
 @dataclass
 class ParasParserExcel():
@@ -184,6 +185,10 @@ def get_sec_name(supplier_type:SupplierType)->SecName:
         sec_name_colunms = SupplierType.MENXITONG_6.value + "_COLUMNS"
         sec_name_hidx = SupplierType.MENXITONG_6.value + "_IND"
         sec_name_bianhao = SupplierType.MENXITONG_6.value + "_BIANHAO"  
+    elif supplier_type == SupplierType.KONGZHIGUI:
+        sec_name_colunms = SupplierType.KONGZHIGUI.value + "_COLUMNS"
+        sec_name_hidx = SupplierType.KONGZHIGUI.value + "_IND"
+        sec_name_bianhao = SupplierType.KONGZHIGUI.value + "_BIANHAO"  
     else:
         raise SupplierTypeError(supplier_type)
     
