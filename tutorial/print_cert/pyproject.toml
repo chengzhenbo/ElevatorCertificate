@@ -13,6 +13,7 @@ uvicorn = "^0.23.2"
 reportlab = "^4.0.4"
 z3c-rml = "<4.3"
 preppy = "^4.2.2"
+pypdf2 = "^3.0.1"
 
 
 [build-system]
