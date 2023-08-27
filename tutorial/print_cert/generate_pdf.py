@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
-
 from z3c.rml import rml2pdf
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
@@ -18,9 +15,18 @@ template_file = Path(HERE /
                      config.get('paths', 'template_directory') / 
                      config.get('filenames', 'certi_file'))
 
-def generate_report(output_path):
+def generate_report(output_pdf, report_data):
     mymodule = preppy.getModule(template_file)
 
+    rmlText = mymodule.get(report_data)
+    pdf = rml2pdf.parseString(rmlText)
+    with open(output_pdf, 'wb') as file:
+        file.write(pdf.read())
+
+if __name__ == "__main__":
+    output_pdf = Path(HERE / 
+                     config.get('paths', 'output_directory') / 
+                     config.get('filenames', 'output_certi_file'))
     report_data = {
         "title": "Ad9u9231",
         "description": "This is a summary of the product sales.",
@@ -30,16 +36,6 @@ def generate_report(output_path):
             {"name": "Product C", "quantity": 75, "price": 12},
         ],
     }
-
-    rmlText = mymodule.get(report_data)
-    pdf = rml2pdf.parseString(rmlText)
-    with open(output_path, 'wb') as file:
-        file.write(pdf.read())
-
-if __name__ == "__main__":
-    output_pdf = Path(HERE / 
-                     config.get('paths', 'output_directory') / 
-                     config.get('filenames', 'output_certi_file'))
-    generate_report(output_pdf)
+    generate_report(output_pdf, report_data)
 
 
