@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "print-cert"
+version = "0.1.0"
+description = ""
+authors = ["chengzhenbo <50646861+chengzhenbo@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "print_cert"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.102.0"
+uvicorn = "^0.23.2"
+reportlab = "^4.0.4"
+z3c-rml = "<4.3"
+preppy = "^4.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

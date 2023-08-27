@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+{{def(report_data)}}
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="tester.pdf">
+<docinit>
+    <registerTTFont faceName="Fangzhenkai" fileName="templatefile/fangzhenkai.ttf"/>
+    <registerTTFont faceName="Fangzhenhei" fileName="templatefile/fangzhenhei.ttf"/>
+    <registerFontFamily
+            name="Fangzhenkai"
+            normal="Fangzhenkai"
+            bold="Fangzhenhei"
+            italic="Fangzhenhei"
+            boldItalic="Fangzhenhei"
+    />
+</docinit>
+<template pageSize="(595, 842)">
+    <pageTemplate id="certmain">
+        <pageGraphics>
+            <image file="templatefile/xizhilogo.png" preserveAspectRatio="1" x="35" y="760" width="92" height="92"/>
+            <image file="templatefile/xizhi_jian.png" preserveAspectRatio="1" x="440" y="140" width="60" height="60"/>
+            <image file="templatefile/xizhi_estamp.png" preserveAspectRatio="1" x="235" y="200" width="120" height="120"/>
+            <setFont name="Fangzhenhei" size="26"/>
+            <drawString x="235" y="760">产品合格证</drawString>
+            <setFont name="Fangzhenhei" size="12"/>
+            <drawString x="410" y="150">检验员：</drawString>
+            <textAnnotation>
+            <param name="Rect">0,0,20,20</param>
+            <param name="F">3</param>
+            <param name="escape">6</param>
+            X::PDF
+            PX(S)
+            MT(PINK)
+            </textAnnotation>
+            <setFont name="Fangzhenhei" size="12" />
+            <drawString x="518" y="18">第<pageNumber/>页</drawString>
+        </pageGraphics>
+        <frame id="first" x1="45" y1="525" width="200" height="180"/>
+        <frame id="second" x1="250" y1="525" width="200" height="180"/>
+        <frame id="third" x1="35" y1="350" width="500" height="200"/>
+    </pageTemplate>
+    <pageTemplate id="configOne" pagesize="(842,595)">
+        <pageGraphics>
+            <image file="templatefile/xizhilogo.png" preserveAspectRatio="1" x="35" y="513" width="92" height="92"/>
+            <setFont name="Fangzhenhei" size="26"/>
+            <drawString x="350" y="513">客梯配置说明</drawString>
+            <setFont name="Fangzhenhei" size="12" />
+            <drawString x="650" y="513">签发日期：</drawString>
+            <drawString x="765" y="18">第<pageNumber/>页</drawString>
+        </pageGraphics>
+        <frame id="first" x1="15" y1="250" width="800" height="250"/>
+        <frame id="second" x1="15" y1="165" width="800" height="100"/>
+        <frame id="third" x1="15" y1="100" width="800" height="100"/>
+    </pageTemplate>
+    <pageTemplate id="configTwo" pagesize="(842,595)">
+        <pageGraphics>
+            <image file="templatefile/xizhilogo.png" preserveAspectRatio="1" x="35" y="513" width="92" height="92"/>
+            <setFont name="Fangzhenhei" size="26"/>
+            <drawString x="350" y="513">客梯配置说明</drawString>
+            <setFont name="Fangzhenhei" size="12" />
+            <drawString x="650" y="513">签发日期：</drawString>
+            <drawString x="765" y="18">第<pageNumber/>页</drawString>
+        </pageGraphics>
+        <frame id="first" x1="15" y1="0" width="800" height="505"/>
+    </pageTemplate>
+</template>
+<stylesheet>
+    <paraStyle name="intro"  fontName="Fangzhenkai" fontSize="12" leading="12" spaceAfter="12"/>
+    <paraStyle name="bottom"  fontName="Fangzhenkai" fontSize="10.5" leading="10" spaceAfter="10"/>
+    <paraStyle name="cellauto"  fontName="Fangzhenkai" fontSize="9.5" autoLeading="max" overflow="truncate"/>
+    <blockTableStyle id="techParas">
+        <blockAlignment value="left"/>
+        <blockSpan start="0,0" stop="0,5"/>
+        <blockFont name="Fangzhenkai"/>
+        <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+    <blockTableStyle id="configParasOne">
+        <blockFont name="Fangzhenhei" size="9.5" leading="14" start="0,0" stop="-1,0"/>
+        <blockAlignment value="center"/>
+        <blockSpan start="0,0" stop="0,7"/>
+        <blockFont name="Fangzhenkai"/>
+        <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+    <blockTableStyle id="configParasTwo">
+        <blockFont name="Fangzhenhei" size="9.5" leading="14" start="0,0" stop="-1,0"/>
+        <blockAlignment value="center"/>
+        <blockSpan start="0,0" stop="0,1"/>
+        <blockFont name="Fangzhenkai"/>
+        <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+    <blockTableStyle id="configParasThree">
+        <blockFont name="Fangzhenhei" size="9.5" leading="14" start="0,0" stop="-1,0"/>
+        <blockAlignment value="center"/>
+        <blockSpan start="0,0" stop="0,4"/>
+        <blockSpan start="1,1" stop="1,2"/>
+        <blockFont name="Fangzhenkai"/>
+        <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+    <blockTableStyle id="configParasFour">
+        <blockFont name="Fangzhenhei" size="9.5" leading="14" start="0,0" stop="-1,0"/>
+        <blockAlignment value="center"/>
+        <blockSpan start="0,0" stop="0,22"/>
+        <blockSpan start="1,7" stop="1,8"/>
+        <blockSpan start="1,9" stop="1,12"/>
+        <blockSpan start="1,13" stop="1,22"/>
+        <blockFont name="Fangzhenkai"/>
+        <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+</stylesheet>
+<story>
+    <nextFrame name="first"/>
+    <para style="intro"><b>产品编号：</b>{{report_data['title']}}</para>
+    <hr color="white" thickness="1pt"/>
+    <para style="intro"><b>产品型号：</b></para>
+    <hr color="white" thickness="1pt"/>
+    <para style="intro"><b>设备类别：</b></para>
+    <hr color="white" thickness="1pt"/>
+    <para style="intro"><b>生产单位：</b></para>
+    <hr color="white" thickness="1pt"/>
+    <para style="intro"><b>用户名称：</b></para>
+
+    <nextFrame name="second"/>
+    <para style="intro"><b>合同号：</b>{{report_data['title']}}</para>
+    <hr color="white" thickness="1pt"/>
+    <para style="intro"><b>产品名称：</b></para>
+    <hr color="white" thickness="1pt"/>
+    <para style="intro"><b>设备品种：</b></para>
+    <hr color="white" thickness="1pt"/>
+    <para style="intro"><b>设备代码：</b></para>
+    <hr color="white" thickness="1pt"/>
+    <para style="intro"><b>生产许可证编号：</b></para>
+    <para style="intro"><b>有效期至：</b></para>
+
+    <nextFrame name="third"/>
+    <blockTable style="techParas" colWidths="1cm,3cm,4cm,5cm,4cm" rowHeights="1cm,1cm,1cm,1cm,1cm,1cm">
+        <tr>
+            <td>
+                <illustration width="1cm" height="5cm">
+                    <rotate degrees="90"/>
+                    <place x="40" y="-1cm" width="5cm" height="1cm">
+                        <para style="intro"><b>主要技术参数</b></para>
+                    </place>
+                </illustration>
+            </td>
+            <td>额定载重(kg)</td>
+            <td></td>
+            <td>提升高度(mm)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>额定速度(m/s)</td>
+            <td></td>
+            <td>轿厢有效面积(平方米)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>控制方式</td>
+            <td></td>
+            <td>轿厢设计自重及范围(kg)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>梯控方式</td>
+            <td></td>
+            <td>平衡系数范围</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>开门方式</td>
+            <td></td>
+            <td>悬挂比</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>层/站/门</td>
+            <td></td>
+            <td>轿厢尺寸（净宽x净深：mm）</td>
+            <td></td>
+        </tr>
+    </blockTable>
+    <storyPlace x="35" y="270" width="525" height="73" origin="page">
+        <para style="bottom">本产品按照Q/HU 1102-2022《电梯制造与安装安全标准》生产，经检验合格准予出厂.</para>
+        <hr color="white" thickness="2pt"/>
+        <para style="bottom">制造地址：浙江省杭州市临安区青山湖街道科技大道2329号.</para>
+        <hr color="white" thickness="2pt"/>
+        <para style="bottom">邮编：311300  电话：400-8261112</para>
+    </storyPlace>
+
+    <setNextTemplate name="configOne"/> 
+    <nextPage/>
+    <nextFrame name="first"/>
+    <blockTable style="configParasOne" colWidths="0.8cm,6cm,4cm,5cm,5cm,4cm,2cm" rowHeights="1cm,1cm,1cm,1cm,1cm,1cm,1cm,1cm">
+        <tr>
+            <td>
+                <illustration width="1cm" height="5cm">
+                    <rotate degrees="90"/>
+                    <place x="80" y="-1.2cm" width="2cm" height="1cm">
+                        <para style="intro"><b>主要部件</b></para>
+                    </place>
+                </illustration>
+            </td>
+            <td>产品名称</td>
+            <td>型号</td>
+            <td>编号（制造批次号）</td>
+            <td>制造单位名称</td>
+            <td>型式试验证书编号</td>
+            <td>制造日期</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>绳头组合</td>
+            <td><para style="cellauto">测试aaa测试aaa测试aaa测试aaa测试</para></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>2023.12.27</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>驱动主机</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>控制柜</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>层门</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>防火门</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>玻璃轿门</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>玻璃轿壁</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </blockTable>
+    <nextFrame name="second"/>
+    <blockTable style="configParasTwo" colWidths="0.8cm,8cm,10cm,4cm,4cm" rowHeights="1cm,1cm">
+        <tr>
+            <td>
+                <illustration width="1cm" height="5cm">
+                    <rotate degrees="90"/>
+                    <place x="5" y="-1.2cm" width="2cm" height="1cm">
+                        <para style="intro"><b>悬挂装置</b></para>
+                    </place>
+                </illustration>
+            </td>
+            <td>名称</td>
+            <td>型号规格</td>
+            <td>直径（mm）</td>
+            <td>数量（根）</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>钢丝绳</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </blockTable>
+    <nextFrame name="third"/>
+    <blockTable style="configParasThree" colWidths="0.8cm,8cm,10cm,8cm" rowHeights="0.7cm,0.7cm,0.7cm,0.7cm,0.7cm">
+        <tr>
+            <td>
+                <illustration width="1cm" height="5cm">
+                    <rotate degrees="90"/>
+                    <place x="15" y="-1.2cm" width="2cm" height="1cm">
+                        <para style="intro"><b>其它装置</b></para>
+                    </place>
+                </illustration>
+            </td>
+            <td>名称</td>
+            <td>型号</td>
+            <td>编号</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>IC卡控制器</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>自动救援操作装置</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>能量回馈装置</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </blockTable>
+
+    <setNextTemplate name="configTwo"/> 
+    <nextPage/>
+    <nextFrame name="first"/>
+    <blockTable style="configParasFour" colWidths="0.8cm,6cm,4cm,5cm,5cm,4cm,2cm" rowHeights="0.7cm,1cm,0.7cm,0.7cm,0.7cm,0.7cm,1cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm,0.7cm">
+        <tr>
+            <td>
+                <illustration width="1cm" height="10cm">
+                    <rotate degrees="90"/>
+                    <place x="180" y="-1cm" width="2cm" height="0.8cm">
+                        <para style="intro"><b>保护装置</b></para>
+                    </place>
+                </illustration>
+            </td>
+            <td>产品名称</td>
+            <td>型号</td>
+            <td>编号（制造批次号）</td>
+            <td>制造单位名称</td>
+            <td>型式试验证书编号</td>
+            <td>制造日期</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><para style="cellauto">轿厢上行超速保护装置 （制动减速装置）</para></td>
+            <td><para style="cellauto">测试aaa测试aaa测试aaa测试aaa测试</para></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>2023.12.27</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>轿厢意外移动保护装置</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>门锁装置(厅门锁)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>集成同步门刀轿门锁</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>含有电子元件的安全电路</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><para style="cellauto">含有电子元件的安全电路 （ 提前开门及再平层）</para>
+        </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>限速器</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>安全钳</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>缓冲器</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </blockTable>
+
+</story>
+</document>
