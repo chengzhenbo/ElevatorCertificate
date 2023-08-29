@@ -22,7 +22,8 @@ template_certfile = Path(HERE /
 def generate_report(report_data:json)->Path:
     output_path = Path(HERE / 
                      config.get('paths', 'output_directory'))
-    file_name = str(uuid.uuid4()) + '.pdf'
+    file_name = 'test' + '.pdf'
+    # file_name = str(uuid.uuid4()) + '.pdf'
     out_pdf = Path(output_path / file_name)
 
     mymodule = preppy.getModule(template_certfile)

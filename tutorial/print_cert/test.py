@@ -22,4 +22,4 @@ def test_many_pdf():
     pdf_file = generate_reports(report_data1,report_data2)
     print(pdf_file)
 if __name__ == "__main__":
-    test_many_pdf()
+    test_one_pdf()
