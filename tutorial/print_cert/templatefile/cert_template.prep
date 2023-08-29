@@ -14,15 +14,16 @@
     />
 </docinit>
 <template pageSize="(595, 842)">
-    <pageTemplate id="certmain">
+    <pageTemplate id="certmain" pagesize="(842,595)">
         <pageGraphics>
-            <image file="templatefile/xizhilogo.png" preserveAspectRatio="1" x="15" y="760" width="92" height="92"/>
-            <image file="templatefile/xizhi_jian.png" preserveAspectRatio="1" x="440" y="140" width="60" height="60"/>
-            <image file="templatefile/xizhi_estamp.png" preserveAspectRatio="1" x="235" y="200" width="120" height="120"/>
+            <image file="templatefile/xizhi_qr.png" preserveAspectRatio="1" x="600" y="460" width="92" height="92"/>
+            <image file="templatefile/xizhilogo.png" preserveAspectRatio="1" x="15" y="530" width="92" height="92"/>
+            <image file="templatefile/xizhi_jian.png" preserveAspectRatio="1" x="700" y="130" width="60" height="60"/>
+            <image file="templatefile/xizhi_estamp.png" preserveAspectRatio="1" x="350" y="40" width="120" height="120"/>
             <setFont name="Fangzhenhei" size="26"/>
-            <drawString x="235" y="760">产品合格证</drawString>
+            <drawString x="350" y="530">产品合格证</drawString>
             <setFont name="Fangzhenhei" size="12"/>
-            <drawString x="410" y="150">检验员：</drawString>
+            <drawString x="665" y="145">检验员：</drawString>
             <textAnnotation>
             <param name="Rect">0,0,20,20</param>
             <param name="F">3</param>
@@ -32,11 +33,12 @@
             MT(PINK)
             </textAnnotation>
             <setFont name="Fangzhenhei" size="12" />
-            <drawString x="518" y="18">第<pageNumber/>页</drawString>
+            <drawString x="765" y="18">第<pageNumber/>页</drawString>
         </pageGraphics>
-        <frame id="first" x1="25" y1="525" width="200" height="180"/>
-        <frame id="second" x1="250" y1="525" width="200" height="180"/>
-        <frame id="third" x1="35" y1="350" width="500" height="200"/>
+        <frame id="first" x1="50" y1="300" width="200" height="180"/>
+        <frame id="second" x1="300" y1="300" width="200" height="180"/>
+        <frame id="third" x1="600" y1="200" width="200" height="180"/>
+        <frame id="fourth" x1="50" y1="150" width="700" height="200"/>
     </pageTemplate>
     <pageTemplate id="configOne" pagesize="(842,595)">
         <pageGraphics>
@@ -124,11 +126,13 @@
     <hr color="white" thickness="1pt"/>
     <para style="intro"><b>设备代码：</b></para>
     <hr color="white" thickness="1pt"/>
-    <para style="intro"><b>生产许可证编号：</b></para>
-    <para style="intro"><b>有效期至：</b></para>
+    <para style="intro"><b>特种设备生产许可证编号：</b></para>
 
     <nextFrame name="third"/>
-    <blockTable style="techParas" colWidths="1cm,3cm,4cm,5cm,4cm" rowHeights="1cm,1cm,1cm,1cm,1cm,1cm">
+    <para style="intro"><b>有效期至：</b></para>
+
+    <nextFrame name="fourth"/>
+    <blockTable style="techParas" colWidths="1cm,6cm,4cm,8cm,6cm" rowHeights="1cm,1cm,1cm,1cm,1cm,1cm">
         <tr>
             <td>
                 <illustration width="1cm" height="5cm">
@@ -179,13 +183,13 @@
             <td></td>
         </tr>
     </blockTable>
-    <storyPlace x="35" y="270" width="525" height="73" origin="page">
-        <para style="bottom">本产品按照Q/HU 1102-2022《电梯制造与安装安全标准》生产，经检验合格准予出厂.</para>
+    <storyPlace x="50" y="80" width="525" height="73" origin="page">
+        <para style="intro">本产品按照Q/HU 1102-2022《电梯制造与安装安全标准》生产，经检验合格准予出厂.</para>
         <hr color="white" thickness="2pt"/>
-        <para style="bottom">制造地址：浙江省杭州市临安区青山湖街道科技大道2329号.</para>
+        <para style="intro">制造地址：浙江省杭州市临安区青山湖街道科技大道2329号.</para>
         <hr color="white" thickness="2pt"/>
-        <para style="bottom">邮编：311300  电话：400-8261112</para>
-    </storyPlace>
+        <para style="intro">邮编：311300  电话：400-8261112</para>
+    </storyPlace> 
 
     <setNextTemplate name="configOne"/> 
     <nextPage/>
@@ -383,8 +387,8 @@
         <tr>
             <td></td>
             <td>缓冲器</td>
-            <td>LD165</td>
-            <td><para style="cellauto">F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311</para></td>
+            <td>LD165(LD187)</td>
+            <td><para style="cellauto">F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/(F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311)</para></td>
             <td></td>
             <td></td>
             <td></td>
