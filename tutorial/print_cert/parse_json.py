@@ -12,6 +12,7 @@ class ParseJson:
         self.extract_ropehead()
         self.extract_drivecontroller()
         self.extract_controlcabinet_doorsystem()
+        self.extract_board()
 
 
     
@@ -78,7 +79,7 @@ class ParseJson:
         
         self.__supplier['drivecontroller'] = drivecontroller   
 
-    def extract_controlcabinet_doorsystem(self):
+    def extract_controlcabinet_doorsystem(self)->None:
         """控制柜和门系统 
         TODO: 这里判断的类型变量应该从supply的schema中导入，以确保类型的一致""" 
         control_cabinet = {} # 控制柜
@@ -147,6 +148,27 @@ class ParseJson:
         self.__supplier['halldoor_lock'] = halldoor_lock 
         self.__supplier['cardoor_lock'] = cardoor_lock 
             
+    def extract_board(self)->None:
+        """两个安全电路配件：SMART和LVCT1"""
+        smart_board = {}
+        lvct1_board = {}
+
+        smart_board['product_model'] = self.data['SupplierSmartBoard']['smartb_model']
+        smart_board['batch_no'] = self.data['SupplierSmartBoard']['smartb_manufacture_batch_no']
+        smart_board['manufacturing_company'] = self.data['SupplierSmartBoard']['dept_name']
+        smart_board['testing_cert_no'] = self.data['SupplierSmartBoard']['smartb_type_testing_cert_no']
+        smart_board['manufacture_date'] = self.data['SupplierSmartBoard']['smartb_manufacture_date']
+
+        lvct1_board['product_model'] = self.data['SupplierLvct1Board']['lvct_model']
+        lvct1_board['batch_no'] = self.data['SupplierLvct1Board']['lvct_manufacture_batch_no']
+        lvct1_board['manufacturing_company'] = self.data['SupplierLvct1Board']['dept_name']
+        lvct1_board['testing_cert_no'] = self.data['SupplierLvct1Board']['lvct_type_testing_cert_no']
+        lvct1_board['manufacture_date'] = self.data['SupplierLvct1Board']['lvct_manufacture_date']
+
+        self.__supplier['smart_board'] = smart_board 
+        self.__supplier['lvct1_board'] = lvct1_board 
+
+
     @property
     def report_data(self):
         self.__report_data["supplier"] = self.__supplier

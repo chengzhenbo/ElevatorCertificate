@@ -479,20 +479,20 @@
         <tr>
             <td></td>
             <td>含有电子元件的安全电路</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["smart_board"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["smart_board"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["smart_board"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["smart_board"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["smart_board"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
             <td>含有电子元件的安全电路 （ 提前开门及再平层）</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["lvct1_board"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["lvct1_board"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["lvct1_board"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["lvct1_board"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["lvct1_board"]["manufacture_date"]}}</td>
         </tr>
     </blockTable>
     <blockTable style="configParasTwo" colWidths="3.8cm,4cm,12cm,4cm,4cm" rowHeights="0.6cm,0.6cm">

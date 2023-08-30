@@ -280,7 +280,7 @@
           "lvct_model": "LVCT1",
           "lvct_manufacture_batch_no": "YM2306122045T1V1.0Y",
           "lvct_type_testing_cert_no": "44444444",
-          "lvct_manufacture_date": "2023-07-14",
+          "lvct_manufacture_date": "2023-07-24",
           "user_id": "9999",
           "create_time": "2023-08-16T12:42:06.659503+08:00",
           "update_time": "2023-08-16T12:42:06.659503+08:00",
