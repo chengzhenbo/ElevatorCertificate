@@ -397,57 +397,57 @@
                     </place>
                 </illustration>
             </td>
-            <td>轿厢上行超速保护装置 （制动减速装置）</td>
-            <td>测试aaa测试aaa</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>2023.12.27</td>
+            <td>{{report_data["supplier"]["braking_deceleration_device"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["braking_deceleration_device"]["product_model"]}}</td>
+            <td><para style="cellauto">{{report_data["supplier"]["braking_deceleration_device"]["batch_no"]}}</para></td>
+            <td>{{report_data["supplier"]["braking_deceleration_device"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["braking_deceleration_device"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["braking_deceleration_device"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
-            <td>轿厢意外移动保护装置</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["movement_protection_device"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["movement_protection_device"]["product_model"]}}</td>
+            <td><para style="cellauto">{{report_data["supplier"]["movement_protection_device"]["batch_no"]}}</para></td>
+            <td>{{report_data["supplier"]["movement_protection_device"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["movement_protection_device"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["movement_protection_device"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
-            <td>限速器</td>
-            <td>FOG175A</td>
-            <td>Y202307261336</td>
+            <td>{{report_data["supplier"]["speed_limiter_1"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_1"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_1"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_1"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_1"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_1"]["manufacture_date"]}}</td>
+        </tr>
+        <tr>
             <td></td>
+            <td>{{report_data["supplier"]["speed_limiter_2"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_2"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_2"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_2"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_2"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["speed_limiter_2"]["manufacture_date"]}}</td>
+        </tr>
+        <tr>
             <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["safebrake_1"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["safebrake_1"]["product_model"]}}</td>
+            <td><para style="cellauto">{{report_data["supplier"]["safebrake_1"]["batch_no"]}}</para></td>
+            <td>{{report_data["supplier"]["safebrake_1"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["safebrake_1"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["safebrake_1"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
             <td></td>
-            <td>FOG175A</td>
-            <td>Y202307261336</td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>安全钳</td>
-            <td>6+0.76+6 夹层</td>
-            <td><para style="cellauto">F330J642023062729390/F330J642023062729390</para></td>
-            <td>上海绿盾电梯部件有限公司</td>
-            <td>TSX F33002220230087</td>
-            <td>2023.06.27</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td>6+0.76+6 夹层</td>
-            <td><para style="cellauto">F330J642023062729390/F330J642023062729390</para></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["safebrake_2"]["product_model"]}}</td>
+            <td><para style="cellauto">{{report_data["supplier"]["safebrake_2"]["batch_no"]}}</para></td>
+            <td>{{report_data["supplier"]["safebrake_2"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["safebrake_2"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["safebrake_2"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
@@ -511,12 +511,12 @@
         <tr>
             <td></td>
             <td>钢丝绳</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["steel_rope"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["steel_rope"]["diameter"]}}</td>
+            <td>{{report_data["supplier"]["steel_rope"]["num"]}}</td>
         </tr>
     </blockTable>
-    <blockTable style="configParasThree" colWidths="7.8cm,10cm,10cm" rowHeights="0.6cm,0.6cm,0.6cm">
+    <blockTable style="configParasThree" colWidths="7.8cm,6cm,14cm" rowHeights="0.6cm,0.6cm,0.6cm">
         <tr>
             <td>
                 <illustration width="5cm" height="2cm">
@@ -525,8 +525,8 @@
                     </place>
                 </illustration>
             </td>
-            <td></td>
-            <td>编号：</td>
+            <td>{{report_data["supplier"]["ic_card"]["product_model"]}}</td>
+            <td>编号：{{report_data["supplier"]["ic_card"]["batch_no"]}}</td>
         </tr>
         <tr>
             <td>
@@ -536,8 +536,8 @@
                     </place>
                 </illustration>
             </td>
-            <td></td>
-            <td>编号：</td>
+            <td>{{report_data["supplier"]["auto_rescue"]["product_model"]}}</td>
+            <td>编号：{{report_data["supplier"]["auto_rescue"]["batch_no"]}}</td>
         </tr>
         <tr>
             <td>
@@ -547,8 +547,8 @@
                     </place>
                 </illustration>
             </td>
-            <td></td>
-            <td>编号：</td>
+            <td>{{report_data["supplier"]["energy_feedback"]["product_model"]}}</td>
+            <td>编号：{{report_data["supplier"]["energy_feedback"]["batch_no"]}}</td>
         </tr>
     </blockTable> 
 

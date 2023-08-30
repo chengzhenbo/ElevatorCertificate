@@ -31,7 +31,8 @@
         "型式试验机构名称": "浙江省特种设备科学研究院",
         "create_time": "2023-08-24T11:13:32.384467+08:00",
         "update_time": "2023-08-29T19:24:23.414782+08:00",
-        "SupplierIcCard": {
+        "SupplierIcCard": [
+          {
           "ic_id": "1691722432731152384",
           "contract_no": "XZPBK0702011024",
           "dept_name": null,
@@ -44,6 +45,20 @@
           "hegezs_id": null,
           "status": "新建"
         },
+        {
+          "ic_id": "1691722432731152384",
+          "contract_no": "XZPBK0702011024",
+          "dept_name": null,
+          "user_id": "9999",
+          "create_time": "2023-08-16T16:03:53.303488+08:00",
+          "update_time": "2023-08-16T16:03:53.303488+08:00",
+          "remark": null,
+          "ic_model": "SQB2-A",
+          "ic_no": "IM23060141OMA2840AAM999I",
+          "hegezs_id": null,
+          "status": "新建"
+        }
+        ],
         "SupplierSafeBrakes": [
           {
             "safeb_id": "1691743453815242752",
@@ -153,31 +168,31 @@
           {
             "sl_id": "1691772530387320832",
             "contract_no": "XZPBK0702011024",
-            "dept_name": "a",
+            "dept_name": "西子电梯科技有限公司",
             "user_id": 9999,
             "create_time": "2023-08-16T19:22:57.515269+08:00",
             "update_time": "2023-08-16T19:22:57.515269+08:00",
             "remark": null,
             "sl_product_type_name": "限速器",
-            "sl_model": "c",
-            "sl_no": "544",
+            "sl_model": "FOG175A",
+            "sl_no": "Y202307261336",
             "sl_speed": "3",
             "sl_type_testing_cert_no": "TSX F38002720220091",
-            "sl_manufacture_date": "2003-04-04",
+            "sl_manufacture_date": "2003-04-07",
             "status": "新建",
             "project_name": "太原市北晨综合开发有限公司"
           },
           {
             "sl_id": "1691772530378932224",
             "contract_no": "XZPBK0702011024",
-            "dept_name": "a",
+            "dept_name": "西子电梯科技有限公司",
             "user_id": 9999,
             "create_time": "2023-08-16T19:22:57.513264+08:00",
             "update_time": "2023-08-16T19:22:57.513264+08:00",
             "remark": null,
             "sl_product_type_name": "限速器",
-            "sl_model": "c",
-            "sl_no": "4k444",
+            "sl_model": "FOG185A",
+            "sl_no": "Y202307261362",
             "sl_speed": "3",
             "sl_type_testing_cert_no": "TSX F38002720220091",
             "sl_manufacture_date": "2003-04-04",
@@ -345,7 +360,7 @@
             "remark": null,
             "cabinuop_product_type_name": "a轿厢上行超速保护装置（减速部件）",
             "cabinuop_model": "aZSD1-770",
-            "cabinuop_no1": "a202307220476-22111",
+            "cabinuop_no1": "a202307220476-22333",
             "cabinuop_no2": null,
             "cabinuop_type_testing_cert_no": "aTSX F35003820190055",
             "cabinuop_manufacture_date": "2023-07-26",
@@ -494,8 +509,8 @@
           "dept_name": null,
           "user_id": "1",
           "remark": null,
-          "enfb_model": "硕士",
-          "enfb_no": "硕士",
+          "enfb_model": "HER00M2",
+          "enfb_no": "XZPBA0313094016",
           "status": null,
           "create_time": "2023-08-26T09:50:28.834320+08:00",
           "update_time": "2023-08-26T09:50:28.834320+08:00"

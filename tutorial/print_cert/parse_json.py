@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime,date
+from collections import defaultdict
 
 class ParseJson:
     def __init__(self, data_dict:dict):
@@ -13,12 +14,15 @@ class ParseJson:
         self.extract_drivecontroller()
         self.extract_controlcabinet_doorsystem()
         self.extract_board()
+        self.extract_another_parts()
+        self.extract_steel_rope()
+        self.extract_cabin_safety()
+        self.extract_speed_limiter()
+        self.extract_safebrake()
 
-
-    
     def extract_product(self)->None:
         """提取产品基本信息"""
-        product:dict = {}
+        product:dict = defaultdict(str)
         product["product_num"] = self.data['contract_no'][3:] #去除合同号前3位
         product["product_contract_no"] = self.data['contract_no']
         product["product_type"] = self.data['ReadinHetonginfo']['梯型'] 
@@ -29,13 +33,13 @@ class ParseJson:
         product["product_device_num"] = self.data['ModelReadinHgzCsZjb']['SysBasicInfoMachine']['设备代码']
         product["product_customer_company"] = self.data['ModelReadinHgzCsZjb']['项目名称']
         product["product_license_num"] = self.data['cert_manufacturing_license_numbe']
-        product["product_license_expiration_date"] = ParseJson.get_datestr(original_date=self.data['cert_valid_date'])
+        product["product_license_expiration_date"] = ParseJson.get_datestr(original_date=self.data['cert_valid_date'],type="C")
         
         self.__report_data["product"] = product
 
     def extract_tech_para(self)->None:
         """主要技术参数"""
-        tech_para = {}
+        tech_para = defaultdict(str)
         tech_para['rated_load'] = self.data['ModelReadinHgzCsZjb']['载重']
         tech_para['rated_speed'] = self.data['ModelReadinHgzCsZjb']['速度']
         tech_para['control_method'] = '集选' # 集选/微处理器/群控制系统/直接梯/工程维护
@@ -57,38 +61,38 @@ class ParseJson:
     
     def extract_ropehead(self)->None:
         """绳头组合"""
-        ropehead = {} 
+        ropehead = defaultdict(str)
         ropehead['product_name'] = self.data['SupplierRopeHead']['ropehc_name']
         ropehead['product_model'] = self.data['SupplierRopeHead']['ropehc_model']
         ropehead['batch_no'] = self.data['SupplierRopeHead']['ropehc_manufacture_batch_no']
         ropehead['manufacturing_company'] = self.data['SupplierRopeHead']['dept_name']
         ropehead['testing_cert_no'] = self.data['SupplierRopeHead']['ropehc_type_testing_cert_no']
-        ropehead['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierRopeHead']['ropehc_manufacture_date'],type=None)
+        ropehead['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierRopeHead']['ropehc_manufacture_date'])
         
         self.__supplier['ropehead'] = ropehead
 
     def extract_drivecontroller(self)->None:
         """驱动主机"""
-        drivecontroller = {} 
+        drivecontroller = defaultdict(str) 
         drivecontroller['product_name'] = self.data['SupplierDriveController']['product_type_name']
         drivecontroller['product_model'] = self.data['SupplierDriveController']['dc_model']
         drivecontroller['batch_no'] = self.data['SupplierDriveController']['dc_no']
         drivecontroller['manufacturing_company'] = self.data['SupplierDriveController']['dept_name']
         drivecontroller['testing_cert_no'] = self.data['SupplierDriveController']['dc_type_testing_cert_no']
-        drivecontroller['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierDriveController']['dc_manufacture_date'],type=None)
+        drivecontroller['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierDriveController']['dc_manufacture_date'])
         
         self.__supplier['drivecontroller'] = drivecontroller   
 
     def extract_controlcabinet_doorsystem(self)->None:
         """控制柜和门系统 
         TODO: 这里判断的类型变量应该从supply的schema中导入，以确保类型的一致""" 
-        control_cabinet = {} # 控制柜
-        landing_door = {}    # 层门
-        fire_door = {}       # 防火门
-        glass_door = {}      # 玻璃轿门
-        glass_wall = {}      # 玻璃轿壁
-        halldoor_lock = {}   # 厅门锁
-        cardoor_lock = {}    # 轿门锁
+        control_cabinet = defaultdict(str) # 控制柜
+        landing_door = defaultdict(str)    # 层门
+        fire_door = defaultdict(str)       # 防火门
+        glass_door = defaultdict(str)      # 玻璃轿门
+        glass_wall = defaultdict(str)      # 玻璃轿壁
+        halldoor_lock = defaultdict(str)   # 厅门锁
+        cardoor_lock = defaultdict(str)    # 轿门锁
         for data in self.data['SupplierKongZhiGuiMenXiTongs']:
             if data['remark'] == '控制柜':
                 control_cabinet['product_name'] = data['type_name']
@@ -96,49 +100,49 @@ class ParseJson:
                 control_cabinet['batch_no'] = data['batch_no']
                 control_cabinet['manufacturing_company'] = data['dept_name']
                 control_cabinet['testing_cert_no'] = data['type_testing_cert_no']
-                control_cabinet['manufacture_date'] = data['manufacture_date']
+                control_cabinet['manufacture_date'] = ParseJson.get_datestr(data['manufacture_date'])
             elif data['remark'] == '层门':
                 landing_door['product_name'] = data['type_name']
                 landing_door['product_model'] = data['model']
                 landing_door['batch_no'] = data['batch_no']
                 landing_door['manufacturing_company'] = data['dept_name']
                 landing_door['testing_cert_no'] = data['type_testing_cert_no']
-                landing_door['manufacture_date'] = data['manufacture_date']
+                landing_door['manufacture_date'] = ParseJson.get_datestr(data['manufacture_date'])
             elif data['remark'] == '防火门':
                 fire_door['product_name'] = data['type_name']
                 fire_door['product_model'] = data['model']
                 fire_door['batch_no'] = data['batch_no']
                 fire_door['manufacturing_company'] = data['dept_name']
                 fire_door['testing_cert_no'] = data['type_testing_cert_no']
-                fire_door['manufacture_date'] = data['manufacture_date']
+                fire_door['manufacture_date'] = ParseJson.get_datestr(data['manufacture_date'])
             elif data['remark'] == '玻璃轿门':
                 glass_door['product_name'] = data['type_name']
                 glass_door['product_model'] = data['model']
                 glass_door['batch_no'] = data['batch_no']
                 glass_door['manufacturing_company'] = data['dept_name']
                 glass_door['testing_cert_no'] = data['type_testing_cert_no']
-                glass_door['manufacture_date'] = data['manufacture_date']
+                glass_door['manufacture_date'] = ParseJson.get_datestr(data['manufacture_date'])
             elif data['remark'] == '玻璃轿壁':
                 glass_wall['product_name'] = data['type_name']
                 glass_wall['product_model'] = data['model']
                 glass_wall['batch_no'] = data['batch_no']
                 glass_wall['manufacturing_company'] = data['dept_name']
                 glass_wall['testing_cert_no'] = data['type_testing_cert_no']
-                glass_wall['manufacture_date'] = data['manufacture_date']
+                glass_wall['manufacture_date'] = ParseJson.get_datestr(data['manufacture_date'])
             elif data['remark'] == '厅门锁':
                 halldoor_lock['product_name'] = data['type_name']
                 halldoor_lock['product_model'] = data['model']
                 halldoor_lock['batch_no'] = data['batch_no']
                 halldoor_lock['manufacturing_company'] = data['dept_name']
                 halldoor_lock['testing_cert_no'] = data['type_testing_cert_no']
-                halldoor_lock['manufacture_date'] = data['manufacture_date']
+                halldoor_lock['manufacture_date'] = ParseJson.get_datestr(data['manufacture_date'])
             elif data['remark'] == '轿门锁':
                 cardoor_lock['product_name'] = data['type_name']
                 cardoor_lock['product_model'] = data['model']
                 cardoor_lock['batch_no'] = data['batch_no']
                 cardoor_lock['manufacturing_company'] = data['dept_name']
                 cardoor_lock['testing_cert_no'] = data['type_testing_cert_no']
-                cardoor_lock['manufacture_date'] = data['manufacture_date']
+                cardoor_lock['manufacture_date'] = ParseJson.get_datestr(data['manufacture_date'])
 
         self.__supplier['control_cabinet'] = control_cabinet 
         self.__supplier['landing_door'] = landing_door 
@@ -150,23 +154,145 @@ class ParseJson:
             
     def extract_board(self)->None:
         """两个安全电路配件：SMART和LVCT1"""
-        smart_board = {}
-        lvct1_board = {}
+        smart_board = defaultdict(str)
+        lvct1_board = defaultdict(str)
 
         smart_board['product_model'] = self.data['SupplierSmartBoard']['smartb_model']
         smart_board['batch_no'] = self.data['SupplierSmartBoard']['smartb_manufacture_batch_no']
         smart_board['manufacturing_company'] = self.data['SupplierSmartBoard']['dept_name']
         smart_board['testing_cert_no'] = self.data['SupplierSmartBoard']['smartb_type_testing_cert_no']
-        smart_board['manufacture_date'] = self.data['SupplierSmartBoard']['smartb_manufacture_date']
+        smart_board['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierSmartBoard']['smartb_manufacture_date'])
 
         lvct1_board['product_model'] = self.data['SupplierLvct1Board']['lvct_model']
         lvct1_board['batch_no'] = self.data['SupplierLvct1Board']['lvct_manufacture_batch_no']
         lvct1_board['manufacturing_company'] = self.data['SupplierLvct1Board']['dept_name']
         lvct1_board['testing_cert_no'] = self.data['SupplierLvct1Board']['lvct_type_testing_cert_no']
-        lvct1_board['manufacture_date'] = self.data['SupplierLvct1Board']['lvct_manufacture_date']
+        lvct1_board['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierLvct1Board']['lvct_manufacture_date'])
 
         self.__supplier['smart_board'] = smart_board 
         self.__supplier['lvct1_board'] = lvct1_board 
+
+    def extract_another_parts(self)->None:
+        """其它装置"""
+        ic_card = defaultdict(str)
+        auto_rescue = defaultdict(str)
+        energy_feedback = defaultdict(str)
+        for data in self.data['SupplierIcCard']: # IC-card可能存在连个编号
+            ic_card['product_model'] = data['ic_model'] 
+            if len(ic_card['batch_no']) == 0:
+                ic_card['batch_no'] = data['ic_no'] 
+            else:
+                ic_card['batch_no'] = ic_card['batch_no'] + '/' + data['ic_no'] 
+
+        auto_rescue['product_model'] = self.data['SupplierAred']['ared_model']
+        auto_rescue['batch_no'] = self.data['SupplierAred']['ared_no']
+
+        energy_feedback['product_model'] = self.data['EquipmentEnergyFeedback']['enfb_model']
+        energy_feedback['batch_no'] = self.data['EquipmentEnergyFeedback']['enfb_no']
+        
+        self.__supplier['ic_card'] = ic_card 
+        self.__supplier['auto_rescue'] = auto_rescue 
+        self.__supplier['energy_feedback'] = energy_feedback 
+
+    def extract_steel_rope(self)->None:
+        """钢丝绳"""
+        steel_rope = defaultdict(str)
+        steel_rope['product_model'] = self.data['SupplierSteelRope']['steelr_specifications_model_value']
+        steel_rope['diameter'] = self.data['SupplierSteelRope']['steelr_diameter_specifications_value']
+        steel_rope['num'] = self.data['SupplierSteelRope']['steelr_num']
+
+        self.__supplier['steel_rope'] = steel_rope 
+
+    def extract_cabin_safety(self)->None:
+        """轿厢意外保护装置"""
+        braking_deceleration_device = defaultdict(str) # 制动减速装置
+        movement_protection_device = defaultdict(str)  # 意外移动保护装置
+
+        for data in self.data['SupplierCabinUpOPs']:
+            braking_deceleration_device['product_name'] = data['cabinuop_product_type_name']
+            braking_deceleration_device['product_model'] = data['cabinuop_model'] 
+            if len(braking_deceleration_device['batch_no']) == 0:
+                braking_deceleration_device['batch_no'] = data['cabinuop_no1'] 
+            else:
+                braking_deceleration_device['batch_no'] = braking_deceleration_device['batch_no'] + '/' + data['cabinuop_no1']
+            braking_deceleration_device['manufacturing_company'] = data['dept_name'] 
+            braking_deceleration_device['testing_cert_no'] = data['cabinuop_type_testing_cert_no']
+            braking_deceleration_device['manufacture_date'] = ParseJson.get_datestr(data['cabinuop_manufacture_date'])
+
+        for data in self.data['SupplierCabinUnMPs']:
+            movement_protection_device['product_name'] = data['cabinump_product_type_name'] 
+            movement_protection_device['product_model'] = data['cabinump_model'] 
+            if len(movement_protection_device['batch_no']) == 0:
+                movement_protection_device['batch_no'] = data['cabinump_no1'] 
+            else:
+                movement_protection_device['batch_no'] = movement_protection_device['batch_no'] + '/' + data['cabinump_no1']
+            movement_protection_device['manufacturing_company'] = data['dept_name'] 
+            movement_protection_device['testing_cert_no'] = data['cabinump_type_testing_cert_no']
+            movement_protection_device['manufacture_date'] = ParseJson.get_datestr(data['cabinump_manufacture_date'])
+        
+        self.__supplier['braking_deceleration_device'] = braking_deceleration_device 
+        self.__supplier['movement_protection_device'] = movement_protection_device
+
+    def extract_speed_limiter(self)->None:
+        """限速器"""
+        speed_limiter_1 = defaultdict(str)
+        speed_limiter_2 = defaultdict(str)
+
+        speed_limiter_1['product_name'] = self.data['SupplierSpeedLimiters'][0]['sl_product_type_name']
+        speed_limiter_1['product_model'] = self.data['SupplierSpeedLimiters'][0]['sl_model']
+        speed_limiter_1['batch_no'] = self.data['SupplierSpeedLimiters'][0]['sl_no']
+        speed_limiter_1['manufacturing_company'] = self.data['SupplierSpeedLimiters'][0]['dept_name']
+        speed_limiter_1['testing_cert_no'] = self.data['SupplierSpeedLimiters'][0]['sl_type_testing_cert_no']
+        speed_limiter_1['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierSpeedLimiters'][0]['sl_manufacture_date'])
+
+        if len(self.data['SupplierSpeedLimiters']) > 0:
+            speed_limiter_2['product_name'] = self.data['SupplierSpeedLimiters'][1]['sl_product_type_name']
+            speed_limiter_2['product_model'] = self.data['SupplierSpeedLimiters'][1]['sl_model']
+            speed_limiter_2['batch_no'] = self.data['SupplierSpeedLimiters'][1]['sl_no']
+            speed_limiter_2['manufacturing_company'] = self.data['SupplierSpeedLimiters'][1]['dept_name']
+            speed_limiter_2['testing_cert_no'] = self.data['SupplierSpeedLimiters'][1]['sl_type_testing_cert_no']
+            speed_limiter_2['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierSpeedLimiters'][1]['sl_manufacture_date'])
+
+        self.__supplier['speed_limiter_1'] = speed_limiter_1 
+        self.__supplier['speed_limiter_2'] = speed_limiter_2 
+
+    def extract_safebrake(self)->None:
+        safebrake_1 = defaultdict(str)
+        safebrake_2 = defaultdict(str)
+        product_model = defaultdict(list)
+
+        for safebrake in self.data['SupplierSafeBrakes']:
+            safebrake_1['product_name'] = safebrake['safeb_product_type_name']
+            # product_model[safebrake['safeb_model']] += '/'+ safebrake['safeb_no1'] 
+            product_model[safebrake['safeb_model']].append([safebrake['safeb_no1'],
+                                                            safebrake['dept_name'],
+                                                            safebrake['safeb_type_testing_cert_no'],
+                                                            ParseJson.get_datestr(safebrake['safeb_manufacture_date'])])
+
+
+        iter_product_model = iter(product_model)
+        model_1 = next(iter_product_model)
+        model_2 = next(iter_product_model)
+        safebrake_1['product_model'] = model_1
+        batch_no1 = ''
+        for item in product_model[model_1]:
+            batch_no1 += '/'+item[0]
+        safebrake_1['batch_no'] = batch_no1[1:] # 去掉第一个/字符
+        safebrake_1['manufacturing_company'] = product_model[model_1][0][1]
+        safebrake_1['testing_cert_no'] = product_model[model_1][0][2]
+        safebrake_1['manufacture_date'] = product_model[model_1][0][3]
+
+        safebrake_2['product_model'] = model_2
+        batch_no2 = ''
+        for item in product_model[model_2]:
+            batch_no2 += '/'+item[0]
+        safebrake_2['batch_no'] = batch_no2[1:] # 去掉第一个/字符
+        safebrake_2['manufacturing_company'] = product_model[model_2][0][1]
+        safebrake_2['testing_cert_no'] = product_model[model_2][0][2]
+        safebrake_2['manufacture_date'] = product_model[model_2][0][3]
+
+        self.__supplier['safebrake_1'] = safebrake_1 
+        self.__supplier['safebrake_2'] = safebrake_2 
 
 
     @property
@@ -175,10 +301,10 @@ class ParseJson:
         return self.__report_data
     
     @classmethod
-    def get_datestr(cls, original_date:date,type="chinese")->str:
+    def get_datestr(cls, original_date:date,type:str="")->str:
         """将日期类型转换为需要的输出格式"""
         dateobj = datetime.strptime(original_date, "%Y-%m-%d")
-        if type=="chinese":
+        if type=="C":
             return f"{dateobj.year}年{dateobj.month}月{dateobj.day}日"
         else:
             return f"{dateobj.year}.{dateobj.month}.{dateobj.day}"
