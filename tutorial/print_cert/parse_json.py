@@ -11,6 +11,7 @@ class ParseJson:
         self.extract_tech_para()
         self.extract_ropehead()
         self.extract_drivecontroller()
+        self.extract_controlcabinet_doorsystem()
 
 
     
@@ -75,9 +76,77 @@ class ParseJson:
         drivecontroller['testing_cert_no'] = self.data['SupplierDriveController']['dc_type_testing_cert_no']
         drivecontroller['manufacture_date'] = ParseJson.get_datestr(self.data['SupplierDriveController']['dc_manufacture_date'],type=None)
         
-        self.__supplier['drivecontroller'] = drivecontroller      
+        self.__supplier['drivecontroller'] = drivecontroller   
 
+    def extract_controlcabinet_doorsystem(self):
+        """控制柜和门系统 
+        TODO: 这里判断的类型变量应该从supply的schema中导入，以确保类型的一致""" 
+        control_cabinet = {} # 控制柜
+        landing_door = {}    # 层门
+        fire_door = {}       # 防火门
+        glass_door = {}      # 玻璃轿门
+        glass_wall = {}      # 玻璃轿壁
+        halldoor_lock = {}   # 厅门锁
+        cardoor_lock = {}    # 轿门锁
+        for data in self.data['SupplierKongZhiGuiMenXiTongs']:
+            if data['remark'] == '控制柜':
+                control_cabinet['product_name'] = data['type_name']
+                control_cabinet['product_model'] = data['model']
+                control_cabinet['batch_no'] = data['batch_no']
+                control_cabinet['manufacturing_company'] = data['dept_name']
+                control_cabinet['testing_cert_no'] = data['type_testing_cert_no']
+                control_cabinet['manufacture_date'] = data['manufacture_date']
+            elif data['remark'] == '层门':
+                landing_door['product_name'] = data['type_name']
+                landing_door['product_model'] = data['model']
+                landing_door['batch_no'] = data['batch_no']
+                landing_door['manufacturing_company'] = data['dept_name']
+                landing_door['testing_cert_no'] = data['type_testing_cert_no']
+                landing_door['manufacture_date'] = data['manufacture_date']
+            elif data['remark'] == '防火门':
+                fire_door['product_name'] = data['type_name']
+                fire_door['product_model'] = data['model']
+                fire_door['batch_no'] = data['batch_no']
+                fire_door['manufacturing_company'] = data['dept_name']
+                fire_door['testing_cert_no'] = data['type_testing_cert_no']
+                fire_door['manufacture_date'] = data['manufacture_date']
+            elif data['remark'] == '玻璃轿门':
+                glass_door['product_name'] = data['type_name']
+                glass_door['product_model'] = data['model']
+                glass_door['batch_no'] = data['batch_no']
+                glass_door['manufacturing_company'] = data['dept_name']
+                glass_door['testing_cert_no'] = data['type_testing_cert_no']
+                glass_door['manufacture_date'] = data['manufacture_date']
+            elif data['remark'] == '玻璃轿壁':
+                glass_wall['product_name'] = data['type_name']
+                glass_wall['product_model'] = data['model']
+                glass_wall['batch_no'] = data['batch_no']
+                glass_wall['manufacturing_company'] = data['dept_name']
+                glass_wall['testing_cert_no'] = data['type_testing_cert_no']
+                glass_wall['manufacture_date'] = data['manufacture_date']
+            elif data['remark'] == '厅门锁':
+                halldoor_lock['product_name'] = data['type_name']
+                halldoor_lock['product_model'] = data['model']
+                halldoor_lock['batch_no'] = data['batch_no']
+                halldoor_lock['manufacturing_company'] = data['dept_name']
+                halldoor_lock['testing_cert_no'] = data['type_testing_cert_no']
+                halldoor_lock['manufacture_date'] = data['manufacture_date']
+            elif data['remark'] == '轿门锁':
+                cardoor_lock['product_name'] = data['type_name']
+                cardoor_lock['product_model'] = data['model']
+                cardoor_lock['batch_no'] = data['batch_no']
+                cardoor_lock['manufacturing_company'] = data['dept_name']
+                cardoor_lock['testing_cert_no'] = data['type_testing_cert_no']
+                cardoor_lock['manufacture_date'] = data['manufacture_date']
 
+        self.__supplier['control_cabinet'] = control_cabinet 
+        self.__supplier['landing_door'] = landing_door 
+        self.__supplier['fire_door'] = fire_door 
+        self.__supplier['glass_door'] = glass_door 
+        self.__supplier['glass_wall'] = glass_wall 
+        self.__supplier['halldoor_lock'] = halldoor_lock 
+        self.__supplier['cardoor_lock'] = cardoor_lock 
+            
     @property
     def report_data(self):
         self.__report_data["supplier"] = self.__supplier

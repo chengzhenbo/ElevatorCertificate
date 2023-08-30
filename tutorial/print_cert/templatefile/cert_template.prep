@@ -341,48 +341,48 @@
         </tr>
         <tr>
             <td></td>
-            <td>控制柜</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["control_cabinet"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["control_cabinet"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["control_cabinet"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["control_cabinet"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["control_cabinet"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["control_cabinet"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
-            <td>层门</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["landing_door"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["landing_door"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["landing_door"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["landing_door"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["landing_door"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["landing_door"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
-            <td>防火门</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["fire_door"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["fire_door"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["fire_door"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["fire_door"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["fire_door"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["fire_door"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
-            <td>玻璃轿门</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["glass_door"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["glass_door"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["glass_door"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["glass_door"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["glass_door"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["glass_door"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
-            <td>玻璃轿壁</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["glass_wall"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["glass_wall"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["glass_wall"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["glass_wall"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["glass_wall"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["glass_wall"]["manufacture_date"]}}</td>
         </tr>
     </blockTable>
 
@@ -460,21 +460,21 @@
         </tr>
         <tr>
             <td></td>
-            <td>门锁装置(厅门锁)</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["halldoor_lock"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["halldoor_lock"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["halldoor_lock"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["halldoor_lock"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["halldoor_lock"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["halldoor_lock"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
-            <td>集成同步门刀轿门锁</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["cardoor_lock"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["cardoor_lock"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["cardoor_lock"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["cardoor_lock"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["cardoor_lock"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["cardoor_lock"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
