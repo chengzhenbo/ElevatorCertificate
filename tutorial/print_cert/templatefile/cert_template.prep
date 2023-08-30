@@ -151,7 +151,7 @@
                     </place>
                 </illustration>
             </td>
-            <td>123 kg</td>
+            <td>{{report_data["tech_para"]["rated_load"]}} kg</td>
             <td>
                 <illustration width="5cm" height="2cm">
                     <place x="90" y="-1.5cm" width="5cm" height="2cm">
@@ -159,7 +159,7 @@
                     </place>
                 </illustration>            
             </td>
-            <td>2345 mm</td>
+            <td>{{report_data["tech_para"]["lifting_height"]}}  mm</td>
         </tr>
         <tr>
             <td></td>
@@ -170,7 +170,7 @@
                     </place>
                 </illustration>    
             </td>
-            <td>34 m/s</td>
+            <td>{{report_data["tech_para"]["rated_speed"]}}  m/s</td>
             <td>
                <illustration width="5cm" height="2cm">
                     <place x="80" y="-1.5cm" width="5cm" height="2cm">
@@ -178,7 +178,7 @@
                     </place>
                 </illustration>  
             </td>
-            <td>233 平方米</td>
+            <td>{{report_data["tech_para"]["carbine_area"]}} 平方米</td>
         </tr>
         <tr>
             <td></td>
@@ -189,7 +189,7 @@
                     </place>
                 </illustration>   
             </td>
-            <td></td>
+            <td>{{report_data["tech_para"]["control_method"]}}</td>
             <td>
                <illustration width="5cm" height="2cm">
                     <place x="65" y="-1.5cm" width="5cm" height="2cm">
@@ -197,7 +197,7 @@
                     </place>
                 </illustration>   
             </td>
-            <td>90 kg</td>
+            <td>{{report_data["tech_para"]["carbine_weight"]}} kg</td>
         </tr>
         <tr>
             <td></td>
@@ -208,7 +208,7 @@
                     </place>
                 </illustration>   
             </td>
-            <td></td>
+            <td>{{report_data["tech_para"]["elevator_control_mode"]}}</td>
             <td>
                <illustration width="5cm" height="2cm">
                     <place x="80" y="-1.5cm" width="5cm" height="2cm">
@@ -216,7 +216,7 @@
                     </place>
                 </illustration>   
             </td>
-            <td></td>
+            <td>{{report_data["tech_para"]["coefficient_range"]}}</td>
         </tr>
         <tr>
             <td></td>
@@ -227,7 +227,7 @@
                     </place>
                 </illustration>   
             </td>
-            <td></td>
+            <td>{{report_data["tech_para"]["door_open_mode"]}}</td>
             <td>
                <illustration width="5cm" height="2cm">
                     <place x="95" y="-1.5cm" width="5cm" height="2cm">
@@ -235,7 +235,7 @@
                     </place>
                 </illustration>  
             </td>
-            <td></td>
+            <td>{{report_data["tech_para"]["suspension_ratio"]}}</td>
         </tr>
         <tr>
             <td></td>
@@ -246,7 +246,7 @@
                     </place>
                 </illustration>  
             </td>
-            <td></td>
+            <td>{{report_data["tech_para"]["floor_num"]}}层/{{report_data["tech_para"]["stop_num"]}}站/{{report_data["tech_para"]["floor_num"]}}门</td>
             <td>
                <illustration width="5cm" height="2cm">
                     <place x="90" y="-1.5cm" width="5cm" height="2cm">
@@ -254,11 +254,11 @@
                     </place>
                 </illustration>  
             </td>
-            <td>净宽1500mmx净深1900mm</td>
+            <td>{{report_data["tech_para"]["carbine_size"]}}</td>
         </tr>
     </blockTable>
     <storyPlace x="50" y="80" width="525" height="73" origin="page">
-        <para style="intro">本产品按照Q/HU 1102-2022《电梯制造与安装安全标准》生产，经检验合格准予出厂.</para>
+        <para style="intro">本产品按照{{report_data["tech_para"]["product_standard"]}}生产，经检验合格准予出厂.</para>
         <hr color="white" thickness="2pt"/>
         <para style="intro">制造地址：浙江省杭州市临安区青山湖街道科技大道2329号.</para>
         <hr color="white" thickness="2pt"/>
@@ -323,21 +323,21 @@
         </tr>
         <tr>
             <td></td>
-            <td>绳头组合</td>
-            <td>测试aaa测试aaa</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>2023.12.27</td>
+            <td>{{report_data["supplier"]["ropehead"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["ropehead"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["ropehead"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["ropehead"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["ropehead"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["ropehead"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
-            <td>驱动主机</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["drivecontroller"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["drivecontroller"]["product_model"]}}</td>
+            <td>{{report_data["supplier"]["drivecontroller"]["batch_no"]}}</td>
+            <td>{{report_data["supplier"]["drivecontroller"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["drivecontroller"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["drivecontroller"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>

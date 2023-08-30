@@ -1,0 +1,59 @@
+
+    __tablename__ = 'sys_elevator_cert_合格证排班表'
+
+    id id号
+    contract_no 合同号
+    w_check_opeartor_id '审核员 制单员 对应 合格证排班专员
+    w_is_checked 是否审核完成
+    w_affiliates_printer_id 分公司打印员
+    w_number_copies 份数
+    w_is_printed 是否打印
+    w_is_mailed 是否寄出
+    w_mail_staff 寄出人员
+    w_mail_date 寄出日期
+    w_mail_no 快递单号
+    w_mail_address 快递地址
+    w_special_remark 特殊要求
+    w_control_mode 控制方式 默认集选 
+    w_serial_no 合格证编号
+    w_factory_no '出厂编号（别称=合同号）
+    w_equipment_code  设备代码equipment_code
+    install_special_equip_license_no  安装特种设备生产许可证编号
+    install_unit  安装单位名称
+    install_address  安装地点
+    install_date  安装竣工日期 
+    balance_coefficients_range  平衡系数范围
+
+    cert_qianfa_date  签发日期
+    cert_manufacturing_license_numbe 特种设备生产许可证编号
+    cert_valid_date 有效日期
+    sales_district 行政区名称
+    sales_area 销售流向
+    型式试验机构名称 型式试验机构名称
+
+    SupplierDriveController 主机
+    SupplierIcCard IC卡
+    SupplierSafeBrakes 安全钳
+    SupplierSteelRope 钢丝绳
+    SupplierRopeHead 绳头组合
+    SupplierSpeedLimiters 限速器
+    SupplierBuffers 缓冲器
+    SupplierSmartBoard 含有电子元件的安全电路）SMART主板
+    SupplierLvct1Board 含有电子元件的安全电路)LVCT1板
+
+    SupplierCabinUnMPs 轿厢意外移动保护装置
+    SupplierCabinUpOPs 轿厢上行超速保护装置
+    SupplierAred 自动救援操作装置
+
+    SupplierKongZhiGuiMenXiTongs 控制柜和门系统
+
+    EquipmentEnergyFeedback 能量回馈装置
+
+    #下面同步过来的数据库表
+    ReadinHetonginfo 
+    ReadinOcpLablejgEcode 
+    ReadinVFocusFaHuoTongZhiDan 
+    ReadinVFocusXsddHgz 
+    ModelReadinHgzCsZjb 合格证参数中间表
+
+

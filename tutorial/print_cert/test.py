@@ -1,6 +1,9 @@
-from generate_pdf import generate_report,generate_reports,extract_data
+
 from pathlib import Path
 import json
+
+from generate_pdf import generate_report,generate_reports
+from parse_json import ParseJson
 
 HERE = Path(__file__).resolve().parent
 
@@ -13,7 +16,9 @@ def test_json():
 def test_one_pdf():
     with open(Path(HERE/"json1.txt")) as f:
         json_data = json.load(f)
-    report_data = extract_data(json_data[0])
+
+    parsejson = ParseJson(data_dict = json_data[0])
+    report_data = parsejson.report_data
 
     pdf_file = generate_report(report_data)
     print(pdf_file)
