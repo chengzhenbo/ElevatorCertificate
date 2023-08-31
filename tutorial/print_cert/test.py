@@ -24,13 +24,12 @@ def test_one_pdf():
     print(pdf_file)
 
 def test_many_pdf():
-    
-    report_data1 = '{"title": "ERasdf394", "age": 30}'
-    report_data2 = '{"title": "DDAlice23", "age": 30}'
+    with open(Path(HERE/"json1.txt")) as f:
+        json_data = json.load(f)
    
-    pdf_file = generate_reports(report_data1,report_data2)
+    pdf_file = generate_reports(json_data)
     print(pdf_file)
 
 
 if __name__ == "__main__":
-    test_one_pdf()
+    test_many_pdf()

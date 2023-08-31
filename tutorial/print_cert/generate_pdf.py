@@ -55,16 +55,16 @@ def merge_pdfs(pdf_files:list[Path], output_path:Path)->Path:
     else:
         return None
 
-def generate_reports(*json_args)->Path:
+def generate_reports(json_args:list)->Path:
     pdf_files = []
-    for json_str in json_args:
-        json_data = json.loads(json_str)
+    for json_data in json_args:
+        
         pdf_file = generate_report(json_data)
         pdf_files.append(pdf_file)
     
     if len(pdf_files):
         output_fn = merge_pdfs(pdf_files, Path("output.pdf"))
-    
+
     return output_fn
 
         
