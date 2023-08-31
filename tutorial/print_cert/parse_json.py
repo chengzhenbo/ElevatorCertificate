@@ -19,6 +19,7 @@ class ParseJson:
         self.extract_cabin_safety()
         self.extract_speed_limiter()
         self.extract_safebrake()
+        self.extract_buffer()
 
     def extract_product(self)->None:
         """提取产品基本信息"""
@@ -257,43 +258,74 @@ class ParseJson:
         self.__supplier['speed_limiter_2'] = speed_limiter_2 
 
     def extract_safebrake(self)->None:
+        """安全钳：最多两个型号，每个型号最多两个编号"""
         safebrake_1 = defaultdict(str)
         safebrake_2 = defaultdict(str)
         product_model = defaultdict(list)
 
-        for safebrake in self.data['SupplierSafeBrakes']:
-            safebrake_1['product_name'] = safebrake['safeb_product_type_name']
-            # product_model[safebrake['safeb_model']] += '/'+ safebrake['safeb_no1'] 
-            product_model[safebrake['safeb_model']].append([safebrake['safeb_no1'],
-                                                            safebrake['dept_name'],
-                                                            safebrake['safeb_type_testing_cert_no'],
-                                                            ParseJson.get_datestr(safebrake['safeb_manufacture_date'])])
-
-
+        for data in self.data['SupplierSafeBrakes']:
+            safebrake_1['product_name'] = data['safeb_product_type_name']
+            # 相同型号的编号、制造单位、证书编号和制造日期数据用list关联
+            product_model[data['safeb_model']].append([data['safeb_no1'],
+                                                       data['dept_name'],
+                                                       data['safeb_type_testing_cert_no'],
+                                                       ParseJson.get_datestr(data['safeb_manufacture_date'])])
+        # 通过将字典转换为迭代器，可依次取字典中元素。
         iter_product_model = iter(product_model)
-        model_1 = next(iter_product_model)
-        model_2 = next(iter_product_model)
-        safebrake_1['product_model'] = model_1
-        batch_no1 = ''
-        for item in product_model[model_1]:
-            batch_no1 += '/'+item[0]
-        safebrake_1['batch_no'] = batch_no1[1:] # 去掉第一个/字符
-        safebrake_1['manufacturing_company'] = product_model[model_1][0][1]
-        safebrake_1['testing_cert_no'] = product_model[model_1][0][2]
-        safebrake_1['manufacture_date'] = product_model[model_1][0][3]
+        if len(product_model) > 0:
+            model_1 = next(iter_product_model)
+            safebrake_1['product_model'] = model_1
+            batch_no1 = ''
+            for item in product_model[model_1]:
+                batch_no1 += '/'+item[0]
+            safebrake_1['batch_no'] = batch_no1[1:] # 去掉第一个/字符
+            # product_model[model_1]list中包含list的个数与该类型下的编号数一致
+            # manufacturing_company,testing_cert_no,manufacture_date相同类型数据一致
+            # 可在list中的第一个list（也就是以下代码的[0]）中取
+            safebrake_1['manufacturing_company'] = product_model[model_1][0][1]
+            safebrake_1['testing_cert_no'] = product_model[model_1][0][2]
+            safebrake_1['manufacture_date'] = product_model[model_1][0][3]
 
-        safebrake_2['product_model'] = model_2
-        batch_no2 = ''
-        for item in product_model[model_2]:
-            batch_no2 += '/'+item[0]
-        safebrake_2['batch_no'] = batch_no2[1:] # 去掉第一个/字符
-        safebrake_2['manufacturing_company'] = product_model[model_2][0][1]
-        safebrake_2['testing_cert_no'] = product_model[model_2][0][2]
-        safebrake_2['manufacture_date'] = product_model[model_2][0][3]
+        if len(product_model) > 1: # 安全钳型号超过2个
+            model_2 = next(iter_product_model)
+            safebrake_2['product_model'] = model_2
+            batch_no2 = ''
+            for item in product_model[model_2]:
+                batch_no2 += '/'+item[0]
+            safebrake_2['batch_no'] = batch_no2[1:] # 去掉第一个/字符
+            safebrake_2['manufacturing_company'] = product_model[model_2][0][1]
+            safebrake_2['testing_cert_no'] = product_model[model_2][0][2]
+            safebrake_2['manufacture_date'] = product_model[model_2][0][3]
 
         self.__supplier['safebrake_1'] = safebrake_1 
         self.__supplier['safebrake_2'] = safebrake_2 
 
+    def extract_buffer(self)->None:
+        """缓冲器：最多2个型号，对应有10个编号"""
+        buffer = defaultdict(str)
+        product_model = defaultdict(str)
+        for data in self.data['SupplierBuffers']:
+            buffer['product_name'] = data['buffer_product_type_name']
+            # 将相同型号的编号字符串进行拼接
+            product_model[data['buffer_model']] += '/'+ data['buffer_no']
+            # 以下数据任意编号都相同，可在任意一个编号数据中取 
+            buffer['manufacturing_company'] = data['dept_name']
+            buffer['testing_cert_no'] = data['buffer_type_testing_cert_no']
+            buffer['manufacture_date'] = ParseJson.get_datestr(data['buffer_manufacture_date'])
+        
+        iter_product_model = iter(product_model)
+        if len(product_model) == 1: # 1个型号的缓冲期
+            model = next(iter_product_model)
+            buffer['product_model'] = model
+            buffer['batch_no'] = product_model[model][1:]
+        elif len(product_model) == 2: # 2个型号的缓冲期，用括号区分
+            model_1 = next(iter_product_model)
+            model_2 = next(iter_product_model)
+            buffer['product_model'] = f"{model_1} ({model_2})"
+            buffer['batch_no'] = f"{product_model[model_1][1:]} ({product_model[model_2][1:]})"
+        else:
+            pass
+        self.__supplier['buffer'] = buffer 
 
     @property
     def report_data(self):

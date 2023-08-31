@@ -451,12 +451,12 @@
         </tr>
         <tr>
             <td></td>
-            <td>缓冲器</td>
-            <td>LD165(LD187)</td>
-            <td><para style="cellauto">F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311/(F330J642023062729311/F330J642023062729311/F330J642023062729311/F330J642023062729311)</para></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{report_data["supplier"]["buffer"]["product_name"]}}</td>
+            <td>{{report_data["supplier"]["buffer"]["product_model"]}}</td>
+            <td><para style="cellauto">{{report_data["supplier"]["buffer"]["batch_no"]}}</para></td>
+            <td>{{report_data["supplier"]["buffer"]["manufacturing_company"]}}</td>
+            <td>{{report_data["supplier"]["buffer"]["testing_cert_no"]}}</td>
+            <td>{{report_data["supplier"]["buffer"]["manufacture_date"]}}</td>
         </tr>
         <tr>
             <td></td>
