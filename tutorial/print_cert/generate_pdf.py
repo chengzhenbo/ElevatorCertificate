@@ -22,8 +22,8 @@ template_certfile = Path(HERE /
 def generate_report(report_data:dict)->Path:
     output_path = Path(HERE / 
                      config.get('paths', 'output_directory'))
-    file_name = 'test' + '.pdf'
-    # file_name = str(uuid.uuid4()) + '.pdf'
+    # file_name = 'test' + '.pdf'
+    file_name = str(uuid.uuid4()) + '.pdf'
     out_pdf = Path(output_path / file_name)
 
     mymodule = preppy.getModule(template_certfile)
@@ -38,6 +38,7 @@ def generate_report(report_data:dict)->Path:
         return None
     
 def merge_pdfs(pdf_files:list[Path], output_path:Path)->Path:
+    """将多个pdf文件合并为一个pdf文件"""
     pdf_writer = PdfWriter()
     for pdf_file in pdf_files:
         pdf_reader = PdfReader(pdf_file, strict=False)

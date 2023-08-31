@@ -17,8 +17,8 @@ def test_one_pdf():
     with open(Path(HERE/"json1.txt")) as f:
         json_data = json.load(f)
 
-    parsejson = ParseJson(data_dict = json_data[0])
-    report_data = parsejson.report_data
+    parser = ParseJson(data_dict = json_data[0])
+    report_data = parser.report_data
 
     pdf_file = generate_report(report_data)
     print(pdf_file)
