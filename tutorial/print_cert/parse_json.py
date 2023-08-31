@@ -37,8 +37,9 @@ class ParseJson:
             product["product_type"] = self.data['ReadinHetonginfo']['梯型'] 
         if 'cert_manufacturing_license_numbe' in self.data:
             product["product_license_num"] = self.data['cert_manufacturing_license_numbe']
-        if 'cert_valid_date' in self.data:    
-            product["product_license_expiration_date"] = ParseJson.get_datestr(original_date=self.data['cert_valid_date'],type="C")
+        if 'cert_valid_date' in self.data:  
+            if  isinstance(self.data['cert_valid_date'] , date):
+                product["product_license_expiration_date"] = ParseJson.get_datestr(original_date=self.data['cert_valid_date'],type="C")
         product["product_manufacturing_company"] = "西子电梯科技有限公司"
 
         self.__report_data["product"] = product
@@ -64,7 +65,9 @@ class ParseJson:
             tech_para['carbine_size'] = f"净宽 {self.data['ModelReadinHgzCsZjb']['轿厢净宽']} mm x 净深 {self.data['ModelReadinHgzCsZjb']['轿厢净深']} mm"
             tech_para['product_standard'] = 'Q/HU 1102-2022《电梯制造与安装安全标准》'
         if 'ReadinVFocusFaHuoTongZhiDan' in self.data and (len(self.data['ReadinVFocusFaHuoTongZhiDan'])>0):
-            tech_para['issue_date'] = ParseJson.get_datestr(self.data['ReadinVFocusFaHuoTongZhiDan']['预计发货时间'],type="C")
+            issue_date = self.data['ReadinVFocusFaHuoTongZhiDan']['预计发货时间']
+            if isinstance(issue_date, date):
+                tech_para['issue_date'] = ParseJson.get_datestr(issue_date,type="C")
 
         self.__report_data["tech_para"] = tech_para
     
@@ -188,12 +191,16 @@ class ParseJson:
         auto_rescue = defaultdict(str)
         energy_feedback = defaultdict(str)
         if 'SupplierIcCard' in self.data and (len(self.data['SupplierIcCard'])>0):
-            for data in self.data['SupplierIcCard']: # IC-card可能存在连个编号
-                ic_card['product_model'] = data['ic_model'] 
-                if len(ic_card['batch_no']) == 0:
-                    ic_card['batch_no'] = data['ic_no'] 
-                else:
-                    ic_card['batch_no'] = ic_card['batch_no'] + '/' + data['ic_no'] 
+            if isinstance(self.data['SupplierIcCard'], list):
+                for data in self.data['SupplierIcCard']: # IC-card可能存在连个编号
+                    ic_card['product_model'] = data['ic_model'] 
+                    if len(ic_card['batch_no']) == 0:
+                        ic_card['batch_no'] = data['ic_no'] 
+                    else:
+                        ic_card['batch_no'] = ic_card['batch_no'] + '/' + data['ic_no'] 
+            elif isinstance(self.data['SupplierIcCard'], dict):
+                ic_card['product_model'] = self.data['SupplierIcCard']['ic_model'] 
+                ic_card['batch_no'] = self.data['SupplierIcCard']['ic_no'] 
 
             auto_rescue['product_model'] = self.data['SupplierAred']['ared_model']
             auto_rescue['batch_no'] = self.data['SupplierAred']['ared_no']
