@@ -16,7 +16,7 @@
 <template pageSize="(595, 842)">
     <pageTemplate id="certmain" pagesize="(842,595)">
         <pageGraphics>
-            <image file="templatefile/xizhi_qr.png" preserveAspectRatio="1" x="600" y="460" width="92" height="92"/>
+            <image file="{{report_data["product"]["qrimg_file"]}}" preserveAspectRatio="1" x="600" y="460" width="92" height="92"/>
             <image file="templatefile/xizhilogo.png" preserveAspectRatio="1" x="15" y="530" width="150" height="150"/>
             <image file="templatefile/xizhi_jian.png" preserveAspectRatio="1" x="700" y="130" width="60" height="60"/>
             <image file="templatefile/xizhi_estamp.png" preserveAspectRatio="1" x="350" y="40" width="120" height="120"/>
