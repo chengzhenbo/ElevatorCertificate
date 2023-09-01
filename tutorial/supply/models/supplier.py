@@ -206,7 +206,7 @@ class SupplierBuffer(Base):
     dept_name = Column(String(100), comment='制造单位')
     product_type_name = Column(String(100), comment='设备品种名称')
     product_model = Column(String(100), comment='型号')
-    product_speed = Column(Float, comment='速度m/s')
+    product_speed = Column(String(10), comment='速度m/s')
     product_no = Column(String(100), comment='编号')
     product_batch_no = Column(String(100), comment='产品批次号') 
     product_testing_cert_no = Column(String(100), comment='型式试验证书编号')

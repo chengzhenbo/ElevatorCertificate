@@ -36,6 +36,7 @@ async def upload_buffers(file: UploadFile,
         buffers = []
         for record in records:
             buffer = schemas.BufferCreate(**record)
+            
             db_obj = crud_supplier_buffer.create_buffer(db=db,
                                                         buffer = buffer)
             if not db_obj:

@@ -12,7 +12,7 @@ class BufferBase(BaseModel):
     dept_name: Optional[str] = None
     product_type_name: Optional[str] = None
     product_model: Optional[str] = None
-    product_speed: Optional[float] = None
+    product_speed: Optional[str] = None
     product_no: Optional[str] = None
     product_batch_no: Optional[str] = None
     product_testing_cert_no: Optional[str] = None
