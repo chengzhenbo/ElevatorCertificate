@@ -255,16 +255,16 @@ def read_supplier_data(supplier_type:SupplierType, path:Path)->DataFrame:
         if 'manufacture_date' in product_0.columns:
             product_0['manufacture_date'] = product_0['manufacture_date'].astype('datetime64[ns]') 
         
-        product_0_without_null = product_0.dropna()
+        # product_0_without_null = product_0.dropna()  # 对于可能为空的情况先将数据导入
         product_0_with_null = product_0[product_0.isnull().any(axis=1)]
-        return SupplierData(valid_dataframe = product_0_without_null, 
+        return SupplierData(valid_dataframe = product_0, 
                             invalid_dataframe = product_0_with_null)
     else: # 否则直接返回
         if 'manufacture_date' in products.columns:
             products['manufacture_date'] = products['manufacture_date'].astype('datetime64[ns]') 
-        products_without_null = products.dropna()
+        # products_without_null = products.dropna() # 对于可能为空的情况先将数据导入
         products_with_null = products[products.isnull().any(axis=1)]
-        return SupplierData(valid_dataframe = products_without_null, 
+        return SupplierData(valid_dataframe = products, 
                             invalid_dataframe = products_with_null)
 
 

@@ -212,7 +212,7 @@
         "buffer_product_type_name": "缓冲器",
         "buffer_model": "x2",
         "buffer_no": "bk7891333",
-        "buffer_speed": "5.9",
+        "buffer_speed": "5.9m/s",
         "buffer_manufacture_batch_no": "a3",
         "buffer_type_testing_cert_no": "2x",
         "buffer_manufacture_date": "2021-03-28",
